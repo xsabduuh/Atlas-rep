@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -175,7 +174,6 @@ footer{padding:32px 18px 90px;background:var(--dark);border-top:1px solid var(--
 .img-close{position:absolute;top:24px;right:24px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:none;color:#fff;width:42px;height:42px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 html{color-scheme:dark}
 </style>
-
 </head>
 <body>
 
@@ -224,79 +222,77 @@ html{color-scheme:dark}
   <h2 class="stitle">اختر <span>طلبك</span></h2>
   <div class="items">
 
-```
-<!-- برغر -->
-<div class="icard">
-  <div class="iico"><img src="burger.jpeg" alt="برغر" onerror="this.outerHTML='🍔'"></div>
-  <div class="ibody">
-    <div class="ibadges"><span class="badge bb">◈ الأفضل</span></div>
-    <div class="iname">برغر أطلس الكبير</div>
-    <div class="idesc">لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص</div>
-    <div class="ifoot">
-      <div class="iprice">55 <em>درهم</em></div>
-      <div class="ictrl">
-        <button class="btn-minus" onclick="removeItem('برغر أطلس الكبير')">−</button>
-        <span class="iqn" id="q0">0</span>
-        <button class="btn-plus" onclick="addItem('برغر أطلس الكبير',55,'🍔','q0')">+</button>
+    <!-- برغر -->
+    <div class="icard">
+      <div class="iico"><img src="burger.jpeg" alt="برغر" onerror="this.replaceWith(document.createTextNode('🍔'))"></div>
+      <div class="ibody">
+        <div class="ibadges"><span class="badge bb">◈ الأفضل</span></div>
+        <div class="iname">برغر أطلس الكبير</div>
+        <div class="idesc">لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص</div>
+        <div class="ifoot">
+          <div class="iprice">55 <em>درهم</em></div>
+          <div class="ictrl">
+            <button class="btn-minus" onclick="removeItem('برغر أطلس الكبير')">−</button>
+            <span class="iqn" id="q0">0</span>
+            <button class="btn-plus" onclick="addItem('برغر أطلس الكبير',55,'🍔','q0')">+</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- تاكوس -->
-<div class="icard">
-  <div class="iico"><img src="tacos.jpeg" alt="تاكوس" onerror="this.outerHTML='🌮'"></div>
-  <div class="ibody">
-    <div class="ibadges"><span class="badge bn">✦ جديد</span></div>
-    <div class="iname">تاكوس أطلس</div>
-    <div class="idesc">ورق تاكوس + لحم + فريت + صوص algerien + جبن</div>
-    <div class="ifoot">
-      <div class="iprice">38 <em>درهم</em></div>
-      <div class="ictrl">
-        <button class="btn-minus" onclick="removeItem('تاكوس أطلس')">−</button>
-        <span class="iqn" id="q1">0</span>
-        <button class="btn-plus" onclick="addItem('تاكوس أطلس',38,'🌮','q1')">+</button>
+    <!-- تاكوس -->
+    <div class="icard">
+      <div class="iico"><img src="tacos.jpeg" alt="تاكوس" onerror="this.replaceWith(document.createTextNode('🌮'))"></div>
+      <div class="ibody">
+        <div class="ibadges"><span class="badge bn">✦ جديد</span></div>
+        <div class="iname">تاكوس أطلس</div>
+        <div class="idesc">ورق تاكوس + لحم + فريت + صوص algerien + جبن</div>
+        <div class="ifoot">
+          <div class="iprice">38 <em>درهم</em></div>
+          <div class="ictrl">
+            <button class="btn-minus" onclick="removeItem('تاكوس أطلس')">−</button>
+            <span class="iqn" id="q1">0</span>
+            <button class="btn-plus" onclick="addItem('تاكوس أطلس',38,'🌮','q1')">+</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- فريت -->
-<div class="icard">
-  <div class="iico"><img src="frites.jpeg" alt="فريت" onerror="this.outerHTML='🍟'"></div>
-  <div class="ibody">
-    <div class="ibadges"></div>
-    <div class="iname">فريت كبير</div>
-    <div class="idesc">بطاطس مقلية طازجة مع كاتشب أو مايونيز</div>
-    <div class="ifoot">
-      <div class="iprice">18 <em>درهم</em></div>
-      <div class="ictrl">
-        <button class="btn-minus" onclick="removeItem('فريت كبير')">−</button>
-        <span class="iqn" id="q2">0</span>
-        <button class="btn-plus" onclick="addItem('فريت كبير',18,'🍟','q2')">+</button>
+    <!-- فريت -->
+    <div class="icard">
+      <div class="iico"><img src="frites.jpeg" alt="فريت" onerror="this.replaceWith(document.createTextNode('🍟'))"></div>
+      <div class="ibody">
+        <div class="ibadges"></div>
+        <div class="iname">فريت كبير</div>
+        <div class="idesc">بطاطس مقلية طازجة مع كاتشب أو مايونيز</div>
+        <div class="ifoot">
+          <div class="iprice">18 <em>درهم</em></div>
+          <div class="ictrl">
+            <button class="btn-minus" onclick="removeItem('فريت كبير')">−</button>
+            <span class="iqn" id="q2">0</span>
+            <button class="btn-plus" onclick="addItem('فريت كبير',18,'🍟','q2')">+</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- كوكا -->
-<div class="icard">
-  <div class="iico"><img src="coca.jpeg" alt="كوكا" onerror="this.outerHTML='🥤'"></div>
-  <div class="ibody">
-    <div class="ibadges"></div>
-    <div class="iname">كوكا / فانتا / سبرايت</div>
-    <div class="idesc">علبة 33cl مبردة</div>
-    <div class="ifoot">
-      <div class="iprice">12 <em>درهم</em></div>
-      <div class="ictrl">
-        <button class="btn-minus" onclick="removeItem('كوكا / فانتا / سبرايت')">−</button>
-        <span class="iqn" id="q3">0</span>
-        <button class="btn-plus" onclick="addItem('كوكا / فانتا / سبرايت',12,'🥤','q3')">+</button>
+    <!-- كوكا -->
+    <div class="icard">
+      <div class="iico"><img src="coca.jpeg" alt="كوكا" onerror="this.replaceWith(document.createTextNode('🥤'))"></div>
+      <div class="ibody">
+        <div class="ibadges"></div>
+        <div class="iname">كوكا / فانتا / سبرايت</div>
+        <div class="idesc">علبة 33cl مبردة</div>
+        <div class="ifoot">
+          <div class="iprice">12 <em>درهم</em></div>
+          <div class="ictrl">
+            <button class="btn-minus" onclick="removeItem('كوكا / فانتا / سبرايت')">−</button>
+            <span class="iqn" id="q3">0</span>
+            <button class="btn-plus" onclick="addItem('كوكا / فانتا / سبرايت',12,'🥤','q3')">+</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-```
 
   </div>
 </section>
@@ -307,7 +303,7 @@ html{color-scheme:dark}
   <div class="info-cards">
     <div class="info-card"><div class="info-ico ired">📍</div><div><div class="ict">◆ العنوان</div><div class="icd">شارع محمد الخامس، جيليز — مراكش</div></div></div>
     <div class="info-card"><div class="info-ico igold">📞</div><div><div class="ict">◆ الهاتف والواتساب</div><div class="icd">0524-382-917 ◆ 0661-234-567</div></div></div>
-    <div class="info-card"><div class="info-ico igreen">✉️</div><div><div class="ict">◆ البريد الإلكتروني</div><div class="icd"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f1c10110b1e1c0b3f0c111e1c141e0b131e0c51121e">[email&#160;protected]</a></div></div></div>
+    <div class="info-card"><div class="info-ico igreen">✉️</div><div><div class="ict">◆ البريد الإلكتروني</div><div class="icd">contact@atlas-snack.ma</div></div></div>
     <div class="info-card"><div class="info-ico iblue">🕐</div><div><div class="ict">◆ أوقات العمل</div><div class="icd">الاثنين — الأحد ◆ 11:00 ص — 11:00 م</div></div></div>
   </div>
 </section>
@@ -321,8 +317,10 @@ html{color-scheme:dark}
 
 <button class="fbtn" id="floatBtn">◈ سلتي <span class="fc" id="fc">0</span></button>
 
-<!-- IMAGE ZOOM OVERLAY -->
+<!-- WHATSAPP FLOAT BUTTON -->
+<button class="wa-btn" onclick="window.open('https://wa.me/212661234567', '_blank')">💬</button>
 
+<!-- IMAGE ZOOM OVERLAY -->
 <div class="img-overlay" id="imgOverlay">
   <button class="img-close" id="imgClose">✕</button>
   <img class="img-zoom" id="imgZoom" src="" alt="">
@@ -366,148 +364,206 @@ html{color-scheme:dark}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 
 var cart = {};
-var dtype = ‘od’;
-var dlabels = {od:‘توصيل للمنزل 🛵’, op:‘استلام من المحل ◈’, odi:‘أكل في المحل 🍽️’};
+var dtype = 'od';
+var dlabels = {od:'توصيل للمنزل 🛵', op:'استلام من المحل ◈', odi:'أكل في المحل 🍽️'};
 
 function addItem(name, price, ico, qid) {
-if (cart[name]) cart[name].qty++;
-else cart[name] = {name:name, price:price, ico:ico, qty:1};
-document.getElementById(qid).textContent = cart[name].qty;
-refreshCart();
-showToast(‘✦ ’ + name + ’ — تمت الإضافة’);
+  if (cart[name]) cart[name].qty++;
+  else cart[name] = {name:name, price:price, ico:ico, qty:1};
+  document.getElementById(qid).textContent = cart[name].qty;
+  refreshCart();
+  showToast('✦ ' + name + ' — تمت الإضافة');
 }
 
 function removeItem(name) {
-if (!cart[name]) return;
-cart[name].qty–;
-if (cart[name].qty <= 0) { delete cart[name]; }
-var qids = {
-‘برغر أطلس الكبير’:‘q0’,
-‘تاكوس أطلس’:‘q1’,
-‘فريت كبير’:‘q2’,
-‘كوكا / فانتا / سبرايت’:‘q3’
-};
-if (qids[name]) document.getElementById(qids[name]).textContent = cart[name] ? cart[name].qty : 0;
-refreshCart();
+  if (!cart[name]) return;
+  cart[name].qty--;
+  if (cart[name].qty <= 0) { delete cart[name]; }
+  var qids = {
+    'برغر أطلس الكبير':'q0',
+    'تاكوس أطلس':'q1',
+    'فريت كبير':'q2',
+    'كوكا / فانتا / سبرايت':'q3'
+  };
+  if (qids[name]) document.getElementById(qids[name]).textContent = cart[name] ? cart[name].qty : 0;
+  refreshCart();
 }
 
 function refreshCart() {
-var count = 0, total = 0;
-Object.values(cart).forEach(function(x){ count += x.qty; total += x.price * x.qty; });
-document.getElementById(‘tval’).textContent = total;
-document.getElementById(‘fc’).textContent = count;
-var b = document.getElementById(‘cbadge’);
-b.style.display = count > 0 ? ‘flex’ : ‘none’;
-b.textContent = count;
+  var count = 0, total = 0;
+  Object.values(cart).forEach(function(x){ count += x.qty; total += x.price * x.qty; });
+  document.getElementById('tval').textContent = total;
+  document.getElementById('fc').textContent = count;
+  var b = document.getElementById('cbadge');
+  b.style.display = count > 0 ? 'flex' : 'none';
+  b.textContent = count;
 }
 
 function showToast(msg) {
-var t = document.getElementById(‘toast’);
-t.textContent = msg;
-t.classList.add(‘show’);
-setTimeout(function(){ t.classList.remove(‘show’); }, 1800);
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 1800);
 }
 
 function openDrawer() {
-renderDrawer();
-document.getElementById(‘overlay’).classList.add(‘on’);
-document.getElementById(‘drawer’).classList.add(‘on’);
+  renderDrawer();
+  document.getElementById('overlay').classList.add('on');
+  document.getElementById('drawer').classList.add('on');
 }
 
 function closeDrawer() {
-document.getElementById(‘overlay’).classList.remove(‘on’);
-document.getElementById(‘drawer’).classList.remove(‘on’);
+  document.getElementById('overlay').classList.remove('on');
+  document.getElementById('drawer').classList.remove('on');
 }
 
 function renderDrawer() {
-var c = document.getElementById(‘ditems’);
-var ks = Object.keys(cart);
-if (!ks.length) {
-c.innerHTML = ‘<div class="empty-c"><div class="empty-ico">◈</div><div>سلتك فارغة — أضف شيئاً!</div></div>’;
-return;
-}
-var h = ‘’;
-ks.forEach(function(k) {
-var x = cart[k];
-h += ‘<div class="ci-row"><div class="ci-ico">’ + x.ico + ‘</div>’;
-h += ‘<div class="ci-info"><div class="ci-name">’ + x.name + ‘</div><div class="ci-price">’ + (x.price*x.qty) + ’ درهم</div></div>’;
-h += ‘<div class="ci-qty"><button class="qb qm" data-k="' + k + '">−</button><div class="qn">’ + x.qty + ‘</div><button class="qb qp" data-k="' + k + '">+</button></div></div>’;
-});
-c.innerHTML = h;
-c.querySelectorAll(’.qm’).forEach(function(b) {
-b.onclick = function() {
-var k = this.getAttribute(‘data-k’);
-if (cart[k]) { cart[k].qty–; if (cart[k].qty<=0) delete cart[k]; }
-refreshCart(); renderDrawer();
-};
-});
-c.querySelectorAll(’.qp’).forEach(function(b) {
-b.onclick = function() {
-var k = this.getAttribute(‘data-k’);
-if (cart[k]) cart[k].qty++;
-refreshCart(); renderDrawer();
-};
-});
+  var c = document.getElementById('ditems');
+  var ks = Object.keys(cart);
+  if (!ks.length) {
+    c.innerHTML = '<div class="empty-c"><div class="empty-ico">◈</div><div>سلتك فارغة — أضف شيئاً!</div></div>';
+    return;
+  }
+  var h = '';
+  ks.forEach(function(k) {
+    var x = cart[k];
+    h += '<div class="ci-row"><div class="ci-ico">' + x.ico + '</div>';
+    h += '<div class="ci-info"><div class="ci-name">' + x.name + '</div><div class="ci-price">' + (x.price*x.qty) + ' درهم</div></div>';
+    h += '<div class="ci-qty"><button class="qb qm" data-k="' + k + '">−</button><div class="qn">' + x.qty + '</div><button class="qb qp" data-k="' + k + '">+</button></div></div>';
+  });
+  c.innerHTML = h;
+
+  c.querySelectorAll('.qm').forEach(function(b) {
+    b.onclick = function() {
+      var k = this.getAttribute('data-k');
+      if (cart[k]) { cart[k].qty--; if (cart[k].qty<=0) delete cart[k]; }
+      refreshCart();
+      renderDrawer();
+    };
+  });
+  c.querySelectorAll('.qp').forEach(function(b) {
+    b.onclick = function() {
+      var k = this.getAttribute('data-k');
+      if (cart[k]) cart[k].qty++;
+      refreshCart();
+      renderDrawer();
+    };
+  });
 }
 
 function openForm() {
-var ks = Object.keys(cart); var total = 0; var h = ‘’;
-ks.forEach(function(k){ var x=cart[k]; var s=x.price*x.qty; total+=s; h+=’<div class="sum-item"><span class="sum-item-n">’+x.name+’ x’+x.qty+’</span><span class="sum-item-p">’+s+’ درهم</span></div>’; });
-document.getElementById(‘sumItems’).innerHTML = h;
-document.getElementById(‘sumTotal’).textContent = total;
-document.getElementById(‘fmodal’).classList.add(‘on’);
+  var ks = Object.keys(cart); 
+  var total = 0; 
+  var h = '';
+  ks.forEach(function(k){ 
+    var x=cart[k]; 
+    var s=x.price*x.qty; 
+    total+=s; 
+    h+='<div class="sum-item"><span class="sum-item-n">'+x.name+' x'+x.qty+'</span><span class="sum-item-p">'+s+' درهم</span></div>'; 
+  });
+  document.getElementById('sumItems').innerHTML = h;
+  document.getElementById('sumTotal').textContent = total;
+  document.getElementById('fmodal').classList.add('on');
 }
 
-function closeForm() { document.getElementById(‘fmodal’).classList.remove(‘on’); }
+function closeForm() { 
+  document.getElementById('fmodal').classList.remove('on'); 
+}
 
-document.getElementById(‘navCartBtn’).onclick = openDrawer;
-document.getElementById(‘floatBtn’).onclick = openDrawer;
-document.getElementById(‘overlay’).onclick = closeDrawer;
-document.getElementById(‘dclose’).onclick = closeDrawer;
-document.getElementById(‘checkoutBtn’).onclick = function() { if (!Object.keys(cart).length) return; closeDrawer(); openForm(); };
-document.getElementById(‘backBtn’).onclick = function() { closeForm(); openDrawer(); };
+document.getElementById('navCartBtn').onclick = openDrawer;
+document.getElementById('floatBtn').onclick = openDrawer;
+document.getElementById('overlay').onclick = closeDrawer;
+document.getElementById('dclose').onclick = closeDrawer;
+document.getElementById('checkoutBtn').onclick = function() { 
+  if (!Object.keys(cart).length) return; 
+  closeDrawer(); 
+  openForm(); 
+};
+document.getElementById('backBtn').onclick = function() { 
+  closeForm(); 
+  openDrawer(); 
+};
 
 // IMAGE ZOOM
-document.querySelectorAll(’.iico’).forEach(function(ico) {
-ico.onclick = function() {
-var img = this.querySelector(‘img’);
-if (!img) return;
-document.getElementById(‘imgZoom’).src = img.src;
-document.getElementById(‘imgOverlay’).classList.add(‘show’);
-};
+document.querySelectorAll('.iico').forEach(function(ico) {
+  ico.onclick = function() {
+    var img = this.querySelector('img');
+    if (!img) return;
+    document.getElementById('imgZoom').src = img.src;
+    document.getElementById('imgOverlay').classList.add('show');
+  };
 });
-document.getElementById(‘imgClose’).onclick = function() {
-document.getElementById(‘imgOverlay’).classList.remove(‘show’);
+document.getElementById('imgClose').onclick = function() {
+  document.getElementById('imgOverlay').classList.remove('show');
 };
-document.getElementById(‘imgOverlay’).onclick = function(e) {
-if (e.target === this) this.classList.remove(‘show’);
+document.getElementById('imgOverlay').onclick = function(e) {
+  if (e.target === this) this.classList.remove('show');
 };
 
-[‘od’,‘op’,‘odi’].forEach(function(id) {
-document.getElementById(id).onclick = function() {
-[‘od’,‘op’,‘odi’].forEach(function(x){ var el=document.getElementById(x); el.classList.remove(‘sel’); el.querySelector(’.dopt-chk’).textContent=’’; });
-this.classList.add(‘sel’); this.querySelector(’.dopt-chk’).textContent=‘✓’;
-dtype = id;
-document.getElementById(‘awrap’).classList[id===‘od’?‘add’:‘remove’]('show');
-};
+['od','op','odi'].forEach(function(id) {
+  document.getElementById(id).onclick = function() {
+    ['od','op','odi'].forEach(function(x){ 
+      var el=document.getElementById(x); 
+      el.classList.remove('sel'); 
+      el.querySelector('.dopt-chk').textContent=''; 
+    });
+    this.classList.add('sel'); 
+    this.querySelector('.dopt-chk').textContent='✓';
+    dtype = id;
+    document.getElementById('awrap').classList[id==='od'?'add':'remove']('show');
+  };
 });
 
-document.getElementById(‘confirmBtn’).onclick = function() {
-var nm=document.getElementById(‘iname’).value.trim();
-var ph=document.getElementById(‘iphone’).value.trim();
-var ad=document.getElementById(‘iaddr’).value.trim();
-var nt=document.getElementById(‘inotes’).value.trim();
-var ok=true;
-[‘iname’,‘iphone’,‘iaddr’].forEach(function(id){ document.getElementById(id).classList.remove(‘err’); });
-[‘ename’,‘ephone’,‘eaddr’].forEach(function(id){ document.getElementById(id).classList.remove(‘show’); });
-if(!nm){document.getElementById(‘iname’).classList.add(‘err’);document.getElementById(‘ename’).classList.add(‘show’);ok=false;}
-if(!ph||ph.length<9){document.getElementById(‘iphone’).classList.add(‘err’);document.getElementById(‘ephone’).classList.add(‘show’);ok=false;}
-if(dtype===‘od’&&!ad){document.getElementById(‘iaddr’).classList.add(‘err’);document.getElementById(‘eaddr’).classList.add(‘show’);ok=false;}
-if(!ok)return;
-var ks=Object.keys(cart);
-var lines=ks.map(function(k){var x=cart[k];return ‘◆ ‘+x.name+’ x’+x.qty+’ — ‘+(x.price*x.qty)+’ درهم’;});
-var total=Object.values(cart).reduce(function(a,x){return a+x.price*x.qty;},0);
-var msg=‘السلام عليكم ◈ Snack Atlas\n\n✦ طلب جديد ✦\n━━━━━━━━━━━━━━\n’+lines.join(’\n’)+’\n━━━━━━━━━━━━━━\n◆ المجموع: ‘+total+’ درهم\n\n✦ معلومات الزبون:\n◆ الاسم: ‘+nm+’\n◆ الهاتف: ‘+ph+’\n◆ طريقة الاستلام: ‘+dlabels[dtype]+’\n’;
+document.getElementById('confirmBtn').onclick = function() {
+  var nm = document.getElementById('iname').value.trim();
+  var ph = document.getElementById('iphone').value.trim();
+  var ad = document.getElementById('iaddr').value.trim();
+  var nt = document.getElementById('inotes').value.trim();
+  var ok = true;
+
+  ['iname','iphone','iaddr'].forEach(function(id){ 
+    document.getElementById(id).classList.remove('err'); 
+  });
+  ['ename','ephone','eaddr'].forEach(function(id){ 
+    document.getElementById(id).classList.remove('show'); 
+  });
+
+  if(!nm){document.getElementById('iname').classList.add('err');document.getElementById('ename').classList.add('show');ok=false;}
+  if(!ph || ph.length < 9){document.getElementById('iphone').classList.add('err');document.getElementById('ephone').classList.add('show');ok=false;}
+  if(dtype==='od' && !ad){document.getElementById('iaddr').classList.add('err');document.getElementById('eaddr').classList.add('show');ok=false;}
+
+  if(!ok) return;
+
+  var ks = Object.keys(cart);
+  var lines = ks.map(function(k){var x=cart[k];return '◆ '+x.name+' x'+x.qty+' — '+(x.price*x.qty)+' درهم';});
+  var total = Object.values(cart).reduce(function(a,x){return a+x.price*x.qty;},0);
+
+  var msg = 
+    "السلام عليكم ◈ Snack Atlas\n\n" +
+    "✦ طلب جديد ✦\n" +
+    "━━━━━━━━━━━━━━\n" +
+    lines.join("\n") + "\n" +
+    "━━━━━━━━━━━━━━\n" +
+    "◆ المجموع: " + total + " درهم\n\n" +
+    "✦ معلومات الزبون:\n" +
+    "◆ الاسم: " + nm + "\n" +
+    "◆ الهاتف: " + ph + "\n" +
+    "◆ طريقة الاستلام: " + dlabels[dtype] + "\n" +
+    (nt ? "◆ ملاحظات: " + nt + "\n" : "");
+
+  var phone = "212661234567";  // ← غيّر الرقم إلى رقم واتساب المحل الفعلي
+  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg), "_blank");
+
+  closeForm();
+  cart = {};                    // تفريغ السلة بعد الإرسال
+  refreshCart();
+  closeDrawer();
+  showToast("✦ تم إرسال الطلب بنجاح!");
+};
+
+</script>
+</body>
+</html>
