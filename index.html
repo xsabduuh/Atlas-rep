@@ -225,7 +225,6 @@ footer{padding:32px 18px 90px;background:var(--dark);border-top:1px solid var(--
   <div class="tabs">
     <button class="tab on" data-f="all">◈ الكل</button>
     <button class="tab" data-f="burger">✦ برغر</button>
-    <button class="tab" data-f="sandwich">◉ سندويش</button>
     <button class="tab" data-f="tacos">⟡ تاكوس</button>
     <button class="tab" data-f="sides">⊹ إضافات</button>
     <button class="tab" data-f="drinks">✴ مشروبات</button>
@@ -249,7 +248,7 @@ footer{padding:32px 18px 90px;background:var(--dark);border-top:1px solid var(--
   <div class="info-cards">
     <div class="info-card"><div class="info-ico ired">◉</div><div><div class="ict">◆ العنوان</div><div class="icd">شارع محمد الخامس، جيليز — مراكش</div></div></div>
     <div class="info-card"><div class="info-ico igold">✦</div><div><div class="ict">◆ الهاتف والواتساب</div><div class="icd">0524-382-917 ◆ 0661-234-567</div></div></div>
-    <div class="info-card"><div class="info-ico igreen">⟡</div><div><div class="ict">◆ البريد الإلكتروني</div><div class="icd">contact@snackatlas.ma</div></div></div>
+    <div class="info-card"><div class="info-ico igreen">⟡</div><div><div class="ict">◆ البريد الإلكتروني</div><div class="icd"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83e0ecedf7e2e0f7c3f0ede2e0e8e2f7efe2f0adeee2">[email&#160;protected]</a></div></div></div>
     <div class="info-card"><div class="info-ico iblue">⊹</div><div><div class="ict">◆ أوقات العمل</div><div class="icd">الاثنين — الأحد ◆ 11:00 ص — 11:00 م</div></div></div>
   </div>
 </section>
@@ -302,257 +301,243 @@ footer{padding:32px 18px 90px;background:var(--dark);border-top:1px solid var(--
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
 // ===== DATA =====
 var ITEMS = [
-  {n:'برغر أطلس الكبير', p:55, i:'🍔', cat:'burger', img:'IMG_2480.jpeg', badges:['bb']},
-  {n:'برغر كرانشي', p:48, i:'🍔', cat:'burger', img:'IMG_2481.jpeg', badges:['bh']},
-  {n:'دبل تشيز برغر', p:65, i:'🍔', cat:'burger', img:'IMG_2482.jpeg', badges:['bn','bh']},
-  {n:'سندويش مغربي', p:30, i:'🥪', cat:'sandwich', img:'IMG_2483.jpeg', badges:['bb']},
-  {n:'سندويش تونة', p:25, i:'🥪', cat:'sandwich', img:'', badges:[]},
-  {n:'تاكوس أطلس', p:38, i:'🌮', cat:'tacos', img:'', badges:['bn']},
-  {n:'تاكوس شيكن', p:35, i:'🌮', cat:'tacos', img:'', badges:[]},
-  {n:'فريت كبير', p:18, i:'🍟', cat:'sides', img:'IMG_2484.jpeg', badges:[]},
-  {n:'حلقات البصل', p:22, i:'🧅', cat:'sides', img:'IMG_2485.jpeg', badges:['bn']},
-  {n:'ميلك شيك شوكولاتة', p:28, i:'🥤', cat:'drinks', img:'', badges:['bh']},
-  {n:'عصير ليمون بالنعناع', p:18, i:'🍋', cat:'drinks', img:'', badges:[]},
-  {n:'كوكا / فانتا / سبرايت', p:12, i:'🥤', cat:'drinks', img:'', badges:[]}
+{n:‘برغر أطلس الكبير’, p:55, i:‘🍔’, cat:‘burger’, img:‘IMG_2480.jpeg’, badges:[‘bb’]},
+{n:‘تاكوس أطلس’, p:38, i:‘🌮’, cat:‘tacos’, img:’’, badges:[‘bn’]},
+{n:‘فريت كبير’, p:18, i:‘🍟’, cat:‘sides’, img:‘IMG_2484.jpeg’, badges:[]},
+{n:‘حلقات البصل’, p:22, i:‘🧅’, cat:‘sides’, img:‘IMG_2485.jpeg’, badges:[‘bn’]},
+{n:‘كوكا / فانتا / سبرايت’, p:12, i:‘🥤’, cat:‘drinks’, img:’’, badges:[]}
 ];
 
-var bLabels = {bb:'◈ الأفضل', bh:'◆ الأكثر طلباً', bn:'✦ جديد'};
-var bClass = {bb:'bb', bh:'bh', bn:'bn'};
+var bLabels = {bb:‘◈ الأفضل’, bh:‘◆ الأكثر طلباً’, bn:‘✦ جديد’};
+var bClass = {bb:‘bb’, bh:‘bh’, bn:‘bn’};
 
 // ===== CART =====
 var cart = {};
 
 function addItem(n, p, ico) {
-  if (cart[n]) cart[n].qty++;
-  else cart[n] = {name:n, price:p, ico:ico, qty:1};
-  refreshQty(n);
-  refreshCart();
-  showToast('✦ ' + n + ' — تمت الإضافة');
+if (cart[n]) cart[n].qty++;
+else cart[n] = {name:n, price:p, ico:ico, qty:1};
+refreshQty(n);
+refreshCart();
+showToast(‘✦ ’ + n + ’ — تمت الإضافة’);
 }
 
 function removeItem(n) {
-  if (!cart[n]) return;
-  cart[n].qty--;
-  if (cart[n].qty <= 0) delete cart[n];
-  refreshQty(n);
-  refreshCart();
+if (!cart[n]) return;
+cart[n].qty–;
+if (cart[n].qty <= 0) delete cart[n];
+refreshQty(n);
+refreshCart();
 }
 
 function refreshQty(n) {
-  var el = document.getElementById('qty-' + n);
-  if (el) el.textContent = cart[n] ? cart[n].qty : 0;
+var safeId = n.replace(/[^a-zA-Z\u0600-\u06FF]/g, ‘_’);
+var el = document.getElementById(‘qty-’ + safeId);
+if (el) el.textContent = cart[n] ? cart[n].qty : 0;
 }
 
 function refreshCart() {
-  var count = 0, total = 0;
-  Object.values(cart).forEach(function(x){ count += x.qty; total += x.price * x.qty; });
-  document.getElementById('tval').textContent = total;
-  document.getElementById('fc').textContent = count;
-  var b = document.getElementById('cbadge');
-  b.style.display = count > 0 ? 'flex' : 'none';
-  b.textContent = count;
+var count = 0, total = 0;
+Object.values(cart).forEach(function(x){ count += x.qty; total += x.price * x.qty; });
+document.getElementById(‘tval’).textContent = total;
+document.getElementById(‘fc’).textContent = count;
+var b = document.getElementById(‘cbadge’);
+b.style.display = count > 0 ? ‘flex’ : ‘none’;
+b.textContent = count;
 }
 
 // ===== RENDER MENU =====
 function renderMenu(filter) {
-  var container = document.getElementById('menuItems');
-  var html = '';
-  ITEMS.forEach(function(item) {
-    var hide = filter !== 'all' && item.cat !== filter ? ' hide' : '';
-    var imgHtml = item.img
-      ? '<img src="' + item.img + '" alt="' + item.n + '" onerror="this.outerHTML=\'' + item.i + '\'">'
-      : item.i;
-    var badgesHtml = item.badges.map(function(b){ return '<span class="badge ' + bClass[b] + '">' + bLabels[b] + '</span>'; }).join('');
-    var safeId = item.n.replace(/\//g, '-').replace(/\s/g, '_');
-    html += '<div class="icard' + hide + '" data-cat="' + item.cat + '">';
-    html += '<div class="iico">' + imgHtml + '</div>';
-    html += '<div class="ibody">';
-    html += '<div class="ibadges">' + badgesHtml + '</div>';
-    html += '<div class="iname">' + item.n + '</div>';
-    html += '<div class="idesc">' + getDesc(item.n) + '</div>';
-    html += '<div class="ifoot">';
-    html += '<div class="iprice">' + item.p + ' <em>درهم</em></div>';
-    html += '<div class="ictrl">';
-    html += '<button class="btn-minus" data-name="' + item.n + '">−</button>';
-    html += '<span class="iqn" id="qty-' + item.n + '">0</span>';
-    html += '<button class="btn-plus" data-name="' + item.n + '" data-price="' + item.p + '" data-ico="' + item.i + '">+</button>';
-    html += '</div></div></div></div>';
-  });
-  container.innerHTML = html;
+var container = document.getElementById(‘menuItems’);
+var html = ‘’;
+ITEMS.forEach(function(item) {
+var hide = filter !== ‘all’ && item.cat !== filter ? ’ hide’ : ‘’;
+var imgHtml = item.img
+? ‘<img src="' + item.img + '" alt="' + item.n + '" onerror="this.outerHTML=\'' + item.i + '\'">’
+: item.i;
+var badgesHtml = item.badges.map(function(b){ return ‘<span class="badge ' + bClass[b] + '">’ + bLabels[b] + ‘</span>’; }).join(’’);
+var safeId = item.n.replace(/[^a-zA-Z\u0600-\u06FF]/g, ‘_’);
+html += ‘<div class="icard' + hide + '" data-cat="' + item.cat + '">’;
+html += ‘<div class="iico">’ + imgHtml + ‘</div>’;
+html += ‘<div class="ibody">’;
+html += ‘<div class="ibadges">’ + badgesHtml + ‘</div>’;
+html += ‘<div class="iname">’ + item.n + ‘</div>’;
+html += ‘<div class="idesc">’ + getDesc(item.n) + ‘</div>’;
+html += ‘<div class="ifoot">’;
+html += ‘<div class="iprice">’ + item.p + ’ <em>درهم</em></div>’;
+html += ‘<div class="ictrl">’;
+html += ‘<button class="btn-minus" data-name="' + item.n + '">−</button>’;
+html += ‘<span class="iqn" id="qty-' + safeId + '">0</span>’;
+html += ‘<button class="btn-plus" data-name="' + item.n + '" data-price="' + item.p + '" data-ico="' + item.i + '">+</button>’;
+html += ‘</div></div></div></div>’;
+});
+container.innerHTML = html;
 
-  // BIND BUTTONS
-  container.querySelectorAll('.btn-plus').forEach(function(btn) {
-    btn.onclick = function(e) {
-      e.stopPropagation();
-      addItem(this.getAttribute('data-name'), parseInt(this.getAttribute('data-price')), this.getAttribute('data-ico'));
-    };
-  });
+// BIND BUTTONS
+container.querySelectorAll(’.btn-plus’).forEach(function(btn) {
+btn.onclick = function(e) {
+e.stopPropagation();
+addItem(this.getAttribute(‘data-name’), parseInt(this.getAttribute(‘data-price’)), this.getAttribute(‘data-ico’));
+};
+});
 
-  container.querySelectorAll('.btn-minus').forEach(function(btn) {
-    btn.onclick = function(e) {
-      e.stopPropagation();
-      removeItem(this.getAttribute('data-name'));
-    };
-  });
+container.querySelectorAll(’.btn-minus’).forEach(function(btn) {
+btn.onclick = function(e) {
+e.stopPropagation();
+removeItem(this.getAttribute(‘data-name’));
+};
+});
 }
 
 function getDesc(n) {
-  var descs = {
-    'برغر أطلس الكبير': 'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص',
-    'برغر كرانشي': 'لحمة مقرمشة + صوص BBQ + بصل مكرمل + مخلل',
-    'دبل تشيز برغر': 'لحمتين + جبنتين + صوص خاص ◆ للجياع فقط',
-    'سندويش مغربي': 'خبز مغربي + كفتة + بيض + خضرة طازجة',
-    'سندويش تونة': 'تونة + خضرة + صوص مايونيز + زيتون',
-    'تاكوس أطلس': 'تورتيا + لحمة + فريت + صوص تاكوس + جبن',
-    'تاكوس شيكن': 'دجاج مشوي + خضرة + صوص أبيض حار',
-    'فريت كبير': 'بطاطس مقلية طازجة مع كاتشب أو مايونيز',
-    'حلقات البصل': 'بصل مقرمش مع صوص خاص',
-    'ميلك شيك شوكولاتة': 'حليب + شوكولاتة + كريمة طازجة',
-    'عصير ليمون بالنعناع': 'طازج ومنعش مع أو بدون سكر',
-    'كوكا / فانتا / سبرايت': 'علبة 33cl مبردة'
-  };
-  return descs[n] || '';
+var descs = {
+‘برغر أطلس الكبير’: ‘لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص’,
+‘برغر كرانشي’: ‘لحمة مقرمشة + صوص BBQ + بصل مكرمل + مخلل’,
+‘دبل تشيز برغر’: ‘لحمتين + جبنتين + صوص خاص ◆ للجياع فقط’,
+‘سندويش مغربي’: ‘خبز مغربي + كفتة + بيض + خضرة طازجة’,
+‘سندويش تونة’: ‘تونة + خضرة + صوص مايونيز + زيتون’,
+‘تاكوس أطلس’: ‘تورتيا + لحمة + فريت + صوص تاكوس + جبن’,
+‘تاكوس شيكن’: ‘دجاج مشوي + خضرة + صوص أبيض حار’,
+‘فريت كبير’: ‘بطاطس مقلية طازجة مع كاتشب أو مايونيز’,
+‘حلقات البصل’: ‘بصل مقرمش مع صوص خاص’,
+‘ميلك شيك شوكولاتة’: ‘حليب + شوكولاتة + كريمة طازجة’,
+‘عصير ليمون بالنعناع’: ‘طازج ومنعش مع أو بدون سكر’,
+‘كوكا / فانتا / سبرايت’: ‘علبة 33cl مبردة’
+};
+return descs[n] || ‘’;
 }
 
 // ===== DRAWER =====
 function openDrawer() {
-  renderDrawer();
-  document.getElementById('overlay').classList.add('on');
-  document.getElementById('drawer').classList.add('on');
+renderDrawer();
+document.getElementById(‘overlay’).classList.add(‘on’);
+document.getElementById(‘drawer’).classList.add(‘on’);
 }
 
 function closeDrawer() {
-  document.getElementById('overlay').classList.remove('on');
-  document.getElementById('drawer').classList.remove('on');
+document.getElementById(‘overlay’).classList.remove(‘on’);
+document.getElementById(‘drawer’).classList.remove(‘on’);
 }
 
 function renderDrawer() {
-  var c = document.getElementById('ditems');
-  var ks = Object.keys(cart);
-  if (!ks.length) {
-    c.innerHTML = '<div class="empty-c"><div class="empty-ico">◈</div><div>سلتك فارغة — أضف شيئاً!</div></div>';
-    return;
-  }
-  var h = '';
-  ks.forEach(function(k) {
-    var x = cart[k];
-    h += '<div class="ci-row">';
-    h += '<div class="ci-ico">' + x.ico + '</div>';
-    h += '<div class="ci-info"><div class="ci-name">' + x.name + '</div><div class="ci-price">' + (x.price*x.qty) + ' درهم</div></div>';
-    h += '<div class="ci-qty">';
-    h += '<button class="qb" data-k="' + k + '" data-a="m">−</button>';
-    h += '<div class="qn">' + x.qty + '</div>';
-    h += '<button class="qb" data-k="' + k + '" data-a="p">+</button>';
-    h += '</div></div>';
-  });
-  c.innerHTML = h;
-  c.querySelectorAll('.qb').forEach(function(b) {
-    b.onclick = function() {
-      var k = this.getAttribute('data-k');
-      var a = this.getAttribute('data-a');
-      if (a === 'm') { if (cart[k]) { cart[k].qty--; if (cart[k].qty<=0) delete cart[k]; } }
-      else { if (cart[k]) cart[k].qty++; }
-      refreshQty(k);
-      refreshCart();
-      renderDrawer();
-    };
-  });
+var c = document.getElementById(‘ditems’);
+var ks = Object.keys(cart);
+if (!ks.length) {
+c.innerHTML = ‘<div class="empty-c"><div class="empty-ico">◈</div><div>سلتك فارغة — أضف شيئاً!</div></div>’;
+return;
+}
+var h = ‘’;
+ks.forEach(function(k) {
+var x = cart[k];
+h += ‘<div class="ci-row">’;
+h += ‘<div class="ci-ico">’ + x.ico + ‘</div>’;
+h += ‘<div class="ci-info"><div class="ci-name">’ + x.name + ‘</div><div class="ci-price">’ + (x.price*x.qty) + ’ درهم</div></div>’;
+h += ‘<div class="ci-qty">’;
+h += ‘<button class="qb" data-k="' + k + '" data-a="m">−</button>’;
+h += ‘<div class="qn">’ + x.qty + ‘</div>’;
+h += ‘<button class="qb" data-k="' + k + '" data-a="p">+</button>’;
+h += ‘</div></div>’;
+});
+c.innerHTML = h;
+c.querySelectorAll(’.qb’).forEach(function(b) {
+b.onclick = function() {
+var k = this.getAttribute(‘data-k’);
+var a = this.getAttribute(‘data-a’);
+if (a === ‘m’) { if (cart[k]) { cart[k].qty–; if (cart[k].qty<=0) delete cart[k]; } }
+else { if (cart[k]) cart[k].qty++; }
+refreshQty(k);
+refreshCart();
+renderDrawer();
+};
+});
 }
 
 // ===== TOAST =====
 function showToast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 1800);
+var t = document.getElementById(‘toast’);
+t.textContent = msg;
+t.classList.add(‘show’);
+setTimeout(function(){ t.classList.remove(‘show’); }, 1800);
 }
 
 // ===== FORM =====
-var dtype = 'od';
-var dlabels = {od:'توصيل للمنزل 🛵', op:'استلام من المحل ◈', odi:'أكل في المحل 🍽️'};
+var dtype = ‘od’;
+var dlabels = {od:‘توصيل للمنزل 🛵’, op:‘استلام من المحل ◈’, odi:‘أكل في المحل 🍽️’};
 
 function openForm() {
-  var ks = Object.keys(cart); var total = 0; var h = '';
-  ks.forEach(function(k){ var x=cart[k]; var s=x.price*x.qty; total+=s; h+='<div class="sum-item"><span class="sum-item-n">'+x.name+' x'+x.qty+'</span><span class="sum-item-p">'+s+' درهم</span></div>'; });
-  document.getElementById('sumItems').innerHTML = h;
-  document.getElementById('sumTotal').textContent = total;
-  document.getElementById('fmodal').classList.add('on');
+var ks = Object.keys(cart); var total = 0; var h = ‘’;
+ks.forEach(function(k){ var x=cart[k]; var s=x.price*x.qty; total+=s; h+=’<div class="sum-item"><span class="sum-item-n">’+x.name+’ x’+x.qty+’</span><span class="sum-item-p">’+s+’ درهم</span></div>’; });
+document.getElementById(‘sumItems’).innerHTML = h;
+document.getElementById(‘sumTotal’).textContent = total;
+document.getElementById(‘fmodal’).classList.add(‘on’);
 }
 
-function closeForm() { document.getElementById('fmodal').classList.remove('on'); }
+function closeForm() { document.getElementById(‘fmodal’).classList.remove(‘on’); }
 
 // ===== INIT =====
-renderMenu('all');
+renderMenu(‘all’);
 
 // TABS
-document.querySelectorAll('.tab').forEach(function(tab) {
-  tab.onclick = function() {
-    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
-    this.classList.add('on');
-    renderMenu(this.getAttribute('data-f'));
-  };
+document.querySelectorAll(’.tab’).forEach(function(tab) {
+tab.onclick = function() {
+document.querySelectorAll(’.tab’).forEach(function(t){ t.classList.remove(‘on’); });
+this.classList.add(‘on’);
+renderMenu(this.getAttribute(‘data-f’));
+};
 });
 
 // SPEC CARDS
 function addSpec(n, p) {
-  if (cart[n]) cart[n].qty++; else cart[n]={name:n, price:p, ico:'🎁', qty:1};
-  refreshCart();
-  showToast('✦ ' + n + ' — تمت الإضافة');
+if (cart[n]) cart[n].qty++; else cart[n]={name:n, price:p, ico:‘🎁’, qty:1};
+refreshCart();
+showToast(‘✦ ’ + n + ’ — تمت الإضافة’);
 }
-document.getElementById('s1').onclick = function(){ addSpec('باقة العائلة', 180); };
-document.getElementById('s2').onclick = function(){ addSpec('باقة الصديقين', 90); };
-document.getElementById('s3').onclick = function(){ addSpec('باقة Solo', 55); };
+document.getElementById(‘s1’).onclick = function(){ addSpec(‘باقة العائلة’, 180); };
+document.getElementById(‘s2’).onclick = function(){ addSpec(‘باقة الصديقين’, 90); };
+document.getElementById(‘s3’).onclick = function(){ addSpec(‘باقة Solo’, 55); };
 
 // NAV
-document.getElementById('navCartBtn').onclick = openDrawer;
-document.getElementById('floatBtn').onclick = openDrawer;
-document.getElementById('overlay').onclick = closeDrawer;
-document.getElementById('dclose').onclick = closeDrawer;
+document.getElementById(‘navCartBtn’).onclick = openDrawer;
+document.getElementById(‘floatBtn’).onclick = openDrawer;
+document.getElementById(‘overlay’).onclick = closeDrawer;
+document.getElementById(‘dclose’).onclick = closeDrawer;
 
-document.getElementById('checkoutBtn').onclick = function() {
-  if (!Object.keys(cart).length) return;
-  closeDrawer();
-  openForm();
+document.getElementById(‘checkoutBtn’).onclick = function() {
+if (!Object.keys(cart).length) return;
+closeDrawer();
+openForm();
 };
 
-['od','op','odi'].forEach(function(id) {
-  document.getElementById(id).onclick = function() {
-    ['od','op','odi'].forEach(function(x){ var el=document.getElementById(x); el.classList.remove('sel'); el.querySelector('.dopt-chk').textContent=''; });
-    this.classList.add('sel');
-    this.querySelector('.dopt-chk').textContent = '✓';
-    dtype = id;
-    document.getElementById('awrap').classList[id==='od'?'add':'remove']('show');
-  };
+[‘od’,‘op’,‘odi’].forEach(function(id) {
+document.getElementById(id).onclick = function() {
+[‘od’,‘op’,‘odi’].forEach(function(x){ var el=document.getElementById(x); el.classList.remove(‘sel’); el.querySelector(’.dopt-chk’).textContent=’’; });
+this.classList.add(‘sel’);
+this.querySelector(’.dopt-chk’).textContent = ‘✓’;
+dtype = id;
+document.getElementById(‘awrap’).classList[id===‘od’?‘add’:‘remove’]('show');
+};
 });
 
-document.getElementById('confirmBtn').onclick = function() {
-  var nm=document.getElementById('iname').value.trim();
-  var ph=document.getElementById('iphone').value.trim();
-  var ad=document.getElementById('iaddr').value.trim();
-  var mk=document.getElementById('imark').value.trim();
-  var nt=document.getElementById('inotes').value.trim();
-  var ok=true;
-  ['iname','iphone','iaddr'].forEach(function(id){ document.getElementById(id).classList.remove('err'); });
-  ['ename','ephone','eaddr'].forEach(function(id){ document.getElementById(id).classList.remove('show'); });
-  if(!nm){document.getElementById('iname').classList.add('err');document.getElementById('ename').classList.add('show');ok=false;}
-  if(!ph||ph.length<9){document.getElementById('iphone').classList.add('err');document.getElementById('ephone').classList.add('show');ok=false;}
-  if(dtype==='od'&&!ad){document.getElementById('iaddr').classList.add('err');document.getElementById('eaddr').classList.add('show');ok=false;}
-  if(!ok)return;
-  var ks=Object.keys(cart);
-  var lines=ks.map(function(k){var x=cart[k];return '◆ '+x.name+' x'+x.qty+' — '+(x.price*x.qty)+' درهم';});
-  var total=Object.values(cart).reduce(function(a,x){return a+x.price*x.qty;},0);
-  var msg='السلام عليكم ◈ Snack Atlas\n\n✦ طلب جديد ✦\n━━━━━━━━━━━━━━\n'+lines.join('\n')+'\n━━━━━━━━━━━━━━\n◆ المجموع: '+total+' درهم\n\n✦ معلومات الزبون:\n◆ الاسم: '+nm+'\n◆ الهاتف: '+ph+'\n◆ طريقة الاستلام: '+dlabels[dtype]+'\n';
-  if(dtype==='od'){msg+='◆ العنوان: '+ad+'\n';if(mk)msg+='◆ علامة مميزة: '+mk+'\n';}
-  if(nt)msg+='◆ ملاحظات: '+nt+'\n';
-  msg+='\nشكراً ✦';
-  window.open('https://wa.me/212661234567?text='+encodeURIComponent(msg));
-};
-
-document.getElementById('backBtn').onclick = function(){ closeForm(); openDrawer(); };
-</script>
-
-</body>
-</html>
+document.getElementById(‘confirmBtn’).onclick = function() {
+var nm=document.getElementById(‘iname’).value.trim();
+var ph=document.getElementById(‘iphone’).value.trim();
+var ad=document.getElementById(‘iaddr’).value.trim();
+var mk=document.getElementById(‘imark’).value.trim();
+var nt=document.getElementById(‘inotes’).value.trim();
+var ok=true;
+[‘iname’,‘iphone’,‘iaddr’].forEach(function(id){ document.getElementById(id).classList.remove(‘err’); });
+[‘ename’,‘ephone’,‘eaddr’].forEach(function(id){ document.getElementById(id).classList.remove(‘show’); });
+if(!nm){document.getElementById(‘iname’).classList.add(‘err’);document.getElementById(‘ename’).classList.add(‘show’);ok=false;}
+if(!ph||ph.length<9){document.getElementById(‘iphone’).classList.add(‘err’);document.getElementById(‘ephone’).classList.add(‘show’);ok=false;}
+if(dtype===‘od’&&!ad){document.getElementById(‘iaddr’).classList.add(‘err’);document.getElementById(‘eaddr’).classList.add(‘show’);ok=false;}
+if(!ok)return;
+var ks=Object.keys(cart);
+var lines=ks.map(function(k){var x=cart[k];return ‘◆ ‘+x.name+’ x’+x.qty+’ — ‘+(x.price*x.qty)+’ درهم’;});
+var total=Object.values(cart).reduce(function(a,x){return a+x.price*x.qty;},0);
+var msg=‘السلام عليكم ◈ Snack Atlas\n\n✦ طلب جديد ✦\n━━━━━━━━━━━━━━\n’+lines.join(’\n’)+’\n━━━━━━━━━━━━━━\n◆ المجموع: ‘+total+’ درهم\n\n✦ معلومات الزبون:\n◆ الاسم: ‘+nm+’\n◆ الهاتف: ‘+ph+’\n◆ طريقة الاستلام: ‘+dlabels[dtype]+’\n’;
+if(dtype===‘od’){msg+=‘◆ العنوان: ‘+ad+’\n’;if(mk)msg+=‘◆ علامة مميزة: ‘+mk+’\n’;}
+if(nt)msg+=’◆ ملاحظات
