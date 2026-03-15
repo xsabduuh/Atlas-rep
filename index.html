@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNACK ATLAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0a08;--dark:#141210;--card:#1c1916;--border:#2a2520;--red:#e63946;--gold:#f4a261;--gold2:#ffd166;--white:#f8f4f0;--gray:#8a8078}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;background:rgba(12,10,8,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(230,57,70,.12)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--red)}
+.nav-logo b{color:var(--gold)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.status-pill{display:flex;align-items:center;gap:5px;background:rgba(45,106,79,.2);border:1px solid rgba(45,106,79,.35);border-radius:99px;padding:5px 11px;font-size:10px;color:#52b788;font-weight:700}
+.dot{width:6px;height:6px;border-radius:50%;background:#52b788;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.cart-btn{background:var(--red);border:none;color:#fff;width:42px;height:42px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px}
+.cart-btn:active{transform:scale(.95)}
+.cbadge{position:absolute;top:-6px;left:-6px;background:var(--gold2);color:var(--bg);width:19px;height:19px;border-radius:50%;font-size:10px;font-weight:900;display:none;align-items:center;justify-content:center;font-family:'Cairo',sans-serif}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:96px 18px 36px;position:relative;overflow:hidden;background:linear-gradient(180deg,#1a0a08,#0c0a08)}
+.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 55%,rgba(230,57,70,.1) 0,transparent 55%)}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(230,57,70,.1);border:1px solid rgba(230,57,70,.22);border-radius:99px;padding:5px 14px;font-size:10px;color:#ff6b6b;font-weight:700;letter-spacing:2px;margin-bottom:18px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:68px;line-height:.9;letter-spacing:2px;margin-bottom:14px}
+.hero-title .r{color:var(--red)}
+.hero-title .o{-webkit-text-stroke:2px rgba(248,244,240,.18);color:transparent}
+.hero-title .s{font-size:.33em;letter-spacing:5px;color:var(--gray);display:block}
+.hero-desc{font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:24px;max-width:290px}
+.hero-btns{display:flex;gap:9px;margin-bottom:28px}
+.btn-r{flex:1;background:var(--red);color:#fff;border:none;padding:15px;border-radius:13px;font-size:14px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer}
+.btn-r:active{opacity:.85}
+.btn-o{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.13);padding:15px 16px;border-radius:13px;font-size:13px;font-weight:600;font-family:'Cairo',sans-serif;cursor:pointer}
+.hero-info{display:flex;gap:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)}
+.hi{display:flex;flex-direction:column;gap:2px}
+.hi-l{font-size:9px;color:var(--gray);letter-spacing:1px;text-transform:uppercase}
+.hi-v{font-size:11px;font-weight:700}
+.mq{overflow:hidden;background:var(--red);padding:11px 0}
+.mq-track{display:flex;gap:28px;animation:mq 16s linear infinite;white-space:nowrap}
+.mq-item{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:#fff;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.mq-dot{color:var(--gold2)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.menu-sec{padding:52px 18px}
+.eyebrow{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.eline{width:18px;height:1px;background:var(--red)}
+.etxt{font-size:9px;color:var(--red);font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;line-height:1;margin-bottom:20px}
+.stitle span{color:var(--gold)}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin-bottom:20px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:var(--card);border:1px solid var(--border);color:var(--gray);border-radius:99px;padding:7px 15px;font-size:12px;font-weight:600;font-family:'Cairo',sans-serif;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.tab.on{background:var(--red);border-color:var(--red);color:#fff}
+.items{display:flex;flex-direction:column;gap:11px}
+.icard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;display:flex;flex-direction:row-reverse;gap:12px;align-items:center}
+.icard.hide{display:none}
+.iico{width:88px;height:88px;border-radius:13px;overflow:hidden;flex-shrink:0;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:36px}
+.iico img{width:100%;height:100%;object-fit:cover;display:block}
+.ibody{flex:1;min-width:0}
+.ibadges{display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap}
+.badge{font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:99px;text-transform:uppercase}
+.bh{background:rgba(230,57,70,.15);color:#ff6b6b;border:1px solid rgba(230,57,70,.22)}
+.bn{background:rgba(244,162,97,.15);color:var(--gold);border:1px solid rgba(244,162,97,.22)}
+.bb{background:rgba(82,183,136,.15);color:#52b788;border:1px solid rgba(82,183,136,.22)}
+.iname{font-size:14px;font-weight:700;margin-bottom:3px}
+.idesc{font-size:11px;color:var(--gray);line-height:1.5;margin-bottom:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ifoot{display:flex;align-items:center;justify-content:space-between}
+.iprice{font-family:'Bebas Neue',sans-serif;font-size:21px;color:var(--gold);letter-spacing:1px}
+.iprice em{font-family:'Cairo',sans-serif;font-size:10px;color:var(--gray);font-style:normal;font-weight:400}
+.ictrl{display:flex;align-items:center;gap:7px}
+.btn-minus,.btn-plus{width:32px;height:32px;border-radius:9px;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;font-family:'Cairo',sans-serif;transition:transform .15s}
+.btn-minus{background:var(--card);border:1px solid var(--border);color:var(--white)}
+.btn-plus{background:var(--red);color:#fff}
+.btn-minus:active,.btn-plus:active{transform:scale(.85)}
+.iqn{font-size:14px;font-weight:700;min-width:20px;text-align:center}
+.specs{padding:52px 18px;background:var(--dark)}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 14px;text-align:center;cursor:pointer;transition:all .22s}
+.scard:active{transform:scale(.96)}
+.scard.wide{grid-column:span 2}
+.sico{font-size:32px;margin-bottom:9px}
+.sname{font-size:13px;font-weight:700;margin-bottom:3px}
+.sdesc{font-size:11px;color:var(--gray);line-height:1.5;margin-bottom:9px}
+.sprice{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);letter-spacing:1px}
+.info-sec{padding:52px 18px}
+.info-cards{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px}
+.info-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;font-family:'Bebas Neue',sans-serif;letter-spacing:1px}
+.ired{background:rgba(230,57,70,.1);color:var(--red)}
+.igold{background:rgba(244,162,97,.1);color:var(--gold)}
+.igreen{background:rgba(82,183,136,.1);color:#52b788}
+.iblue{background:rgba(96,165,250,.1);color:#60a5fa}
+.ict{font-size:13px;font-weight:700;margin-bottom:2px}
+.icd{font-size:11px;color:var(--gray);line-height:1.5}
+footer{padding:32px 18px 90px;background:var(--dark);border-top:1px solid var(--border);text-align:center}
+.flogo{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);letter-spacing:4px;margin-bottom:3px}
+.flogo b{color:var(--gold)}
+.fsub{font-size:10px;color:var(--gray);letter-spacing:2px;margin-bottom:16px}
+.flinks{display:flex;justify-content:center;gap:18px;margin-bottom:12px}
+.flink{font-size:11px;color:var(--gray);text-decoration:none}
+.fcopy{font-size:10px;color:rgba(138,128,120,.38)}
+.toast{position:fixed;top:72px;left:50%;transform:translateX(-50%) translateY(-8px);background:var(--card);border:1px solid rgba(230,57,70,.28);border-radius:11px;padding:10px 18px;font-size:12px;font-weight:700;z-index:999;opacity:0;transition:all .28s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.fbtn{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;border:none;padding:13px 26px;border-radius:99px;font-size:13px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;box-shadow:0 8px 26px rgba(230,57,70,.42);z-index:98;display:flex;align-items:center;gap:9px;white-space:nowrap}
+.fbtn:active{transform:translateX(-50%) scale(.96)}
+.fc{background:rgba(255,255,255,.2);padding:2px 9px;border-radius:99px;font-size:12px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:all .28s}
+.overlay.on{opacity:1;visibility:visible}
+.drawer{position:fixed;bottom:0;left:0;right:0;background:var(--dark);border-radius:22px 22px 0 0;border-top:1px solid var(--border);z-index:201;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);max-height:86vh;display:flex;flex-direction:column}
+.drawer.on{transform:translateY(0)}
+.dhandle{width:38px;height:4px;background:var(--border);border-radius:99px;margin:11px auto;flex-shrink:0}
+.dhead{padding:0 18px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0}
+.dtitle{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--red)}
+.dclose{background:var(--card);border:1px solid var(--border);color:var(--white);width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+.ditems{flex:1;overflow-y:auto;padding:14px 18px}
+.ci-row{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.ci-ico{width:48px;height:48px;border-radius:11px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border:1px solid var(--border)}
+.ci-info{flex:1}
+.ci-name{font-size:12px;font-weight:700;margin-bottom:2px}
+.ci-price{font-size:11px;color:var(--gold);font-weight:700}
+.ci-qty{display:flex;align-items:center;gap:7px}
+.qb{background:var(--card);border:1px solid var(--border);color:var(--white);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;font-family:'Cairo',sans-serif}
+.qb:active{transform:scale(.88)}
+.qn{font-size:13px;font-weight:700;min-width:18px;text-align:center}
+.empty-c{text-align:center;padding:36px;color:var(--gray)}
+.empty-ico{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;margin-bottom:10px;opacity:.25}
+.dfoot{padding:14px 18px;border-top:1px solid var(--border);flex-shrink:0}
+.trow{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+.tlbl{font-size:12px;color:var(--gray)}
+.tval{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);letter-spacing:1px}
+.btn-checkout{width:100%;background:linear-gradient(135deg,var(--red),#c1121f);color:#fff;border:none;padding:16px;border-radius:13px;font-size:15px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer}
+.btn-checkout:active{transform:scale(.98)}
+.fmodal{position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:300;display:flex;align-items:flex-end;opacity:0;visibility:hidden;transition:all .28s}
+.fmodal.on{opacity:1;visibility:visible}
+.fbox{background:var(--dark);border-radius:22px 22px 0 0;border-top:1px solid var(--border);padding:0 0 28px;width:100%;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);max-height:93vh;overflow-y:auto}
+.fmodal.on .fbox{transform:translateY(0)}
+.fhandle{width:38px;height:4px;background:var(--border);border-radius:99px;margin:12px auto}
+.fhead{padding:0 18px 14px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.ftitle{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--red);margin-bottom:3px}
+.fsub2{font-size:11px;color:var(--gray)}
+.fbody{padding:0 18px}
+.fgroup{margin-bottom:14px}
+.flabel{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.flabel span{color:var(--red)}
+.finput{width:100%;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 15px;font-size:13px;font-family:'Cairo',sans-serif;color:var(--white);outline:none;transition:border-color .25s}
+.finput:focus{border-color:var(--red)}
+.finput::placeholder{color:var(--gray)}
+.finput.err{border-color:#ff6b6b;background:rgba(230,57,70,.04)}
+.errmsg{font-size:10px;color:#ff6b6b;margin-top:4px;display:none}
+.errmsg.show{display:block}
+.dopts{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.dopt{display:flex;align-items:center;gap:13px;background:var(--card);border:2px solid var(--border);border-radius:13px;padding:13px 15px;cursor:pointer;transition:all .22s}
+.dopt.sel{border-color:var(--red);background:rgba(230,57,70,.06)}
+.dopt:active{transform:scale(.97)}
+.dopt-ico{font-size:22px;flex-shrink:0}
+.dopt-info{flex:1}
+.dopt-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.dopt-desc{font-size:10px;color:var(--gray)}
+.dopt-chk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .22s;flex-shrink:0}
+.dopt.sel .dopt-chk{background:var(--red);border-color:var(--red);color:#fff}
+.addr-wrap{overflow:hidden;max-height:0;transition:max-height .32s ease}
+.addr-wrap.show{max-height:220px}
+.order-sum{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:13px 15px;margin-bottom:14px}
+.sum-title{font-size:10px;color:var(--gray);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:9px}
+.sum-items{display:flex;flex-direction:column;gap:5px;margin-bottom:9px}
+.sum-item{display:flex;justify-content:space-between;font-size:12px}
+.sum-item-n{color:var(--gray)}
+.sum-item-p{font-weight:700}
+.sum-total{display:flex;justify-content:space-between;padding-top:9px;border-top:1px solid var(--border)}
+.sum-tl{font-size:12px;font-weight:700}
+.sum-tv{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--gold);letter-spacing:1px}
+.btn-confirm{width:100%;background:#25d366;color:#fff;border:none;padding:16px;border-radius:13px;font-size:15px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:9px}
+.btn-confirm:active{transform:scale(.97)}
+.btn-back{width:100%;background:transparent;border:1px solid var(--border);color:var(--gray);padding:13px;border-radius:13px;font-size:13px;font-family:'Cairo',sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<nav>
+  <div class="nav-logo">SNACK <b>ATLAS</b></div>
+  <div class="nav-r">
+    <div class="status-pill"><div class="dot"></div>مفتوح</div>
+    <button class="cart-btn" id="navCartBtn">◈<div class="cbadge" id="cbadge"></div></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag"><div class="dot"></div>✦ جيليز — مراكش ✦</div>
+  <h1 class="hero-title"><span class="r">SNACK</span><br><span class="o">ATLAS</span><br><span class="s">◆ GUELIZ MARRAKECH ◆</span></h1>
+  <p class="hero-desc">أشهى البرغر والسندويشات المغربية — طازج، سريع، ولا يُنسى.</p>
+  <div class="hero-btns">
+    <button class="btn-r" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">◈ اطلب الآن</button>
+    <button class="btn-o" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">✦ تواصل</button>
+  </div>
+  <div class="hero-info">
+    <div class="hi"><div class="hi-l">◆ الموقع</div><div class="hi-v">جيليز، مراكش</div></div>
+    <div class="hi"><div class="hi-l">◆ الهاتف</div><div class="hi-v">0524-382-917</div></div>
+    <div class="hi"><div class="hi-l">◆ الأوقات</div><div class="hi-v">11ص — 11م</div></div>
+  </div>
+</section>
+
+<div class="mq">
+  <div class="mq-track">
+    <div class="mq-item">BURGERS <span class="mq-dot">◆</span></div>
+    <div class="mq-item">SANDWICHS <span class="mq-dot">◆</span></div>
+    <div class="mq-item">TACOS <span class="mq-dot">◆</span></div>
+    <div class="mq-item">FRITES <span class="mq-dot">◆</span></div>
+    <div class="mq-item">MILKSHAKE <span class="mq-dot">◆</span></div>
+    <div class="mq-item">LIVRAISON <span class="mq-dot">◆</span></div>
+    <div class="mq-item">BURGERS <span class="mq-dot">◆</span></div>
+    <div class="mq-item">SANDWICHS <span class="mq-dot">◆</span></div>
+    <div class="mq-item">TACOS <span class="mq-dot">◆</span></div>
+    <div class="mq-item">FRITES <span class="mq-dot">◆</span></div>
+    <div class="mq-item">MILKSHAKE <span class="mq-dot">◆</span></div>
+    <div class="mq-item">LIVRAISON <span class="mq-dot">◆</span></div>
+  </div>
+</div>
+
+<section class="menu-sec" id="menu">
+  <div class="eyebrow"><div class="eline"></div><div class="etxt">✦ قائمة الطعام</div></div>
+  <h2 class="stitle">اختر <span>طلبك</span></h2>
+  <div class="tabs">
+    <button class="tab on" data-f="all">◈ الكل</button>
+    <button class="tab" data-f="burger">✦ برغر</button>
+    <button class="tab" data-f="sandwich">◉ سندويش</button>
+    <button class="tab" data-f="tacos">⟡ تاكوس</button>
+    <button class="tab" data-f="sides">⊹ إضافات</button>
+    <button class="tab" data-f="drinks">✴ مشروبات</button>
+  </div>
+  <div class="items" id="menuItems"></div>
+</section>
+
+<section class="specs">
+  <div class="eyebrow"><div class="eline"></div><div class="etxt">◈ الباقات المميزة</div></div>
+  <h2 class="stitle">وفّر <span>أكثر</span></h2>
+  <div class="spec-grid">
+    <div class="scard wide" id="s1"><div class="sico">🍔🍔</div><div class="sname">◈ باقة العائلة</div><div class="sdesc">برغرين + 4 فريت + 4 مشروبات — توفير 40 درهم</div><div class="sprice">180 درهم</div></div>
+    <div class="scard" id="s2"><div class="sico">🥪</div><div class="sname">◆ باقة الصديقين</div><div class="sdesc">2 سندويش + 2 فريت + 2 مشروب</div><div class="sprice">90 درهم</div></div>
+    <div class="scard" id="s3"><div class="sico">🍟</div><div class="sname">◆ باقة Solo</div><div class="sdesc">برغر + فريت + مشروب</div><div class="sprice">55 درهم</div></div>
+  </div>
+</section>
+
+<section class="info-sec" id="info">
+  <div class="eyebrow"><div class="eline"></div><div class="etxt">✦ تواصل معنا</div></div>
+  <h2 class="stitle">معلومات <span>المحل</span></h2>
+  <div class="info-cards">
+    <div class="info-card"><div class="info-ico ired">◉</div><div><div class="ict">◆ العنوان</div><div class="icd">شارع محمد الخامس، جيليز — مراكش</div></div></div>
+    <div class="info-card"><div class="info-ico igold">✦</div><div><div class="ict">◆ الهاتف والواتساب</div><div class="icd">0524-382-917 ◆ 0661-234-567</div></div></div>
+    <div class="info-card"><div class="info-ico igreen">⟡</div><div><div class="ict">◆ البريد الإلكتروني</div><div class="icd">contact@snackatlas.ma</div></div></div>
+    <div class="info-card"><div class="info-ico iblue">⊹</div><div><div class="ict">◆ أوقات العمل</div><div class="icd">الاثنين — الأحد ◆ 11:00 ص — 11:00 م</div></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">SNACK <b>ATLAS</b></div>
+  <div class="fsub">◆ GUELIZ — MARRAKECH ◆</div>
+  <div class="flinks"><a href="tel:0524382917" class="flink">✦ اتصل بنا</a><a href="#" class="flink">◈ انستغرام</a><a href="#" class="flink">◉ فيسبوك</a></div>
+  <div class="fcopy">◆ 2025 Snack Atlas — جميع الحقوق محفوظة ◆</div>
+</footer>
+
+<button class="fbtn" id="floatBtn">◈ سلتي <span class="fc" id="fc">0</span></button>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="drawer" id="drawer">
+  <div class="dhandle"></div>
+  <div class="dhead"><div class="dtitle">◈ سلتي</div><button class="dclose" id="dclose">✕</button></div>
+  <div class="ditems" id="ditems"><div class="empty-c"><div class="empty-ico">◈</div><div>سلتك فارغة</div></div></div>
+  <div class="dfoot">
+    <div class="trow"><div class="tlbl">◆ المجموع</div><div class="tval"><span id="tval">0</span> درهم</div></div>
+    <button class="btn-checkout" id="checkoutBtn">◈ إتمام الطلب</button>
+  </div>
+</div>
+
+<div class="fmodal" id="fmodal">
+  <div class="fbox">
+    <div class="fhandle"></div>
+    <div class="fhead"><div class="ftitle">◈ تأكيد الطلب</div><div class="fsub2">◆ أدخل معلوماتك لإتمام الطلب</div></div>
+    <div class="fbody">
+      <div class="order-sum"><div class="sum-title">✦ ملخص طلبك</div><div class="sum-items" id="sumItems"></div><div class="sum-total"><div class="sum-tl">◆ المجموع</div><div class="sum-tv"><span id="sumTotal">0</span> درهم</div></div></div>
+      <div class="fgroup">
+        <div class="flabel">✦ طريقة الاستلام <span>*</span></div>
+        <div class="dopts">
+          <div class="dopt sel" id="od"><div class="dopt-ico">🛵</div><div class="dopt-info"><div class="dopt-name">◆ توصيل للمنزل</div><div class="dopt-desc">30-45 دقيقة ◆ داخل جيليز مجاناً</div></div><div class="dopt-chk">✓</div></div>
+          <div class="dopt" id="op"><div class="dopt-ico">◈</div><div class="dopt-info"><div class="dopt-name">◆ استلام من المحل</div><div class="dopt-desc">جاهز في 15 دقيقة</div></div><div class="dopt-chk"></div></div>
+          <div class="dopt" id="odi"><div class="dopt-ico">🍽️</div><div class="dopt-info"><div class="dopt-name">◆ أكل في المحل</div><div class="dopt-desc">جو هادئ ◆ واي فاي مجاني</div></div><div class="dopt-chk"></div></div>
+        </div>
+      </div>
+      <div class="fgroup"><div class="flabel">◉ الاسم الكامل <span>*</span></div><input class="finput" id="iname" type="text" placeholder="مثال: محمد أمين"><div class="errmsg" id="ename">◆ يرجى إدخال اسمك</div></div>
+      <div class="fgroup"><div class="flabel">◉ رقم الهاتف <span>*</span></div><input class="finput" id="iphone" type="tel" placeholder="مثال: 0612345678"><div class="errmsg" id="ephone">◆ يرجى إدخال رقم صحيح</div></div>
+      <div class="addr-wrap show" id="awrap">
+        <div class="fgroup"><div class="flabel">◉ العنوان <span>*</span></div><input class="finput" id="iaddr" type="text" placeholder="الشارع، الحي، رقم البناية..."><div class="errmsg" id="eaddr">◆ يرجى إدخال عنوانك</div></div>
+        <div class="fgroup"><div class="flabel">⟡ علامة مميزة (اختياري)</div><input class="finput" id="imark" type="text" placeholder="مثال: بجانب المسجد..."></div>
+      </div>
+      <div class="fgroup"><div class="flabel">⊹ ملاحظات (اختياري)</div><input class="finput" id="inotes" type="text" placeholder="حساسية، طلب خاص..."></div>
+      <button class="btn-confirm" id="confirmBtn">✦ تأكيد الطلب على واتساب</button>
+      <button class="btn-back" id="backBtn">← العودة للسلة</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+var ITEMS = [
+  {n:'برغر أطلس الكبير', p:55, i:'🍔', cat:'burger', img:'IMG_2480.jpeg', badges:['bb']},
+  {n:'برغر كرانشي', p:48, i:'🍔', cat:'burger', img:'IMG_2481.jpeg', badges:['bh']},
+  {n:'دبل تشيز برغر', p:65, i:'🍔', cat:'burger', img:'IMG_2482.jpeg', badges:['bn','bh']},
+  {n:'سندويش مغربي', p:30, i:'🥪', cat:'sandwich', img:'IMG_2483.jpeg', badges:['bb']},
+  {n:'سندويش تونة', p:25, i:'🥪', cat:'sandwich', img:'', badges:[]},
+  {n:'تاكوس أطلس', p:38, i:'🌮', cat:'tacos', img:'', badges:['bn']},
+  {n:'تاكوس شيكن', p:35, i:'🌮', cat:'tacos', img:'', badges:[]},
+  {n:'فريت كبير', p:18, i:'🍟', cat:'sides', img:'IMG_2484.jpeg', badges:[]},
+  {n:'حلقات البصل', p:22, i:'🧅', cat:'sides', img:'IMG_2485.jpeg', badges:['bn']},
+  {n:'ميلك شيك شوكولاتة', p:28, i:'🥤', cat:'drinks', img:'', badges:['bh']},
+  {n:'عصير ليمون بالنعناع', p:18, i:'🍋', cat:'drinks', img:'', badges:[]},
+  {n:'كوكا / فانتا / سبرايت', p:12, i:'🥤', cat:'drinks', img:'', badges:[]}
+];
+
+var bLabels = {bb:'◈ الأفضل', bh:'◆ الأكثر طلباً', bn:'✦ جديد'};
+var bClass = {bb:'bb', bh:'bh', bn:'bn'};
+
+// ===== CART =====
+var cart = {};
+
+function addItem(n, p, ico) {
+  if (cart[n]) cart[n].qty++;
+  else cart[n] = {name:n, price:p, ico:ico, qty:1};
+  refreshQty(n);
+  refreshCart();
+  showToast('✦ ' + n + ' — تمت الإضافة');
+}
+
+function removeItem(n) {
+  if (!cart[n]) return;
+  cart[n].qty--;
+  if (cart[n].qty <= 0) delete cart[n];
+  refreshQty(n);
+  refreshCart();
+}
+
+function refreshQty(n) {
+  var el = document.getElementById('qty-' + n);
+  if (el) el.textContent = cart[n] ? cart[n].qty : 0;
+}
+
+function refreshCart() {
+  var count = 0, total = 0;
+  Object.values(cart).forEach(function(x){ count += x.qty; total += x.price * x.qty; });
+  document.getElementById('tval').textContent = total;
+  document.getElementById('fc').textContent = count;
+  var b = document.getElementById('cbadge');
+  b.style.display = count > 0 ? 'flex' : 'none';
+  b.textContent = count;
+}
+
+// ===== RENDER MENU =====
+function renderMenu(filter) {
+  var container = document.getElementById('menuItems');
+  var html = '';
+  ITEMS.forEach(function(item) {
+    var hide = filter !== 'all' && item.cat !== filter ? ' hide' : '';
+    var imgHtml = item.img
+      ? '<img src="' + item.img + '" alt="' + item.n + '" onerror="this.outerHTML=\'' + item.i + '\'">'
+      : item.i;
+    var badgesHtml = item.badges.map(function(b){ return '<span class="badge ' + bClass[b] + '">' + bLabels[b] + '</span>'; }).join('');
+    var safeId = item.n.replace(/\//g, '-').replace(/\s/g, '_');
+    html += '<div class="icard' + hide + '" data-cat="' + item.cat + '">';
+    html += '<div class="iico">' + imgHtml + '</div>';
+    html += '<div class="ibody">';
+    html += '<div class="ibadges">' + badgesHtml + '</div>';
+    html += '<div class="iname">' + item.n + '</div>';
+    html += '<div class="idesc">' + getDesc(item.n) + '</div>';
+    html += '<div class="ifoot">';
+    html += '<div class="iprice">' + item.p + ' <em>درهم</em></div>';
+    html += '<div class="ictrl">';
+    html += '<button class="btn-minus" data-name="' + item.n + '">−</button>';
+    html += '<span class="iqn" id="qty-' + item.n + '">0</span>';
+    html += '<button class="btn-plus" data-name="' + item.n + '" data-price="' + item.p + '" data-ico="' + item.i + '">+</button>';
+    html += '</div></div></div></div>';
+  });
+  container.innerHTML = html;
+
+  // BIND BUTTONS
+  container.querySelectorAll('.btn-plus').forEach(function(btn) {
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      addItem(this.getAttribute('data-name'), parseInt(this.getAttribute('data-price')), this.getAttribute('data-ico'));
+    };
+  });
+
+  container.querySelectorAll('.btn-minus').forEach(function(btn) {
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      removeItem(this.getAttribute('data-name'));
+    };
+  });
+}
+
+function getDesc(n) {
+  var descs = {
+    'برغر أطلس الكبير': 'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص',
+    'برغر كرانشي': 'لحمة مقرمشة + صوص BBQ + بصل مكرمل + مخلل',
+    'دبل تشيز برغر': 'لحمتين + جبنتين + صوص خاص ◆ للجياع فقط',
+    'سندويش مغربي': 'خبز مغربي + كفتة + بيض + خضرة طازجة',
+    'سندويش تونة': 'تونة + خضرة + صوص مايونيز + زيتون',
+    'تاكوس أطلس': 'تورتيا + لحمة + فريت + صوص تاكوس + جبن',
+    'تاكوس شيكن': 'دجاج مشوي + خضرة + صوص أبيض حار',
+    'فريت كبير': 'بطاطس مقلية طازجة مع كاتشب أو مايونيز',
+    'حلقات البصل': 'بصل مقرمش مع صوص خاص',
+    'ميلك شيك شوكولاتة': 'حليب + شوكولاتة + كريمة طازجة',
+    'عصير ليمون بالنعناع': 'طازج ومنعش مع أو بدون سكر',
+    'كوكا / فانتا / سبرايت': 'علبة 33cl مبردة'
+  };
+  return descs[n] || '';
+}
+
+// ===== DRAWER =====
+function openDrawer() {
+  renderDrawer();
+  document.getElementById('overlay').classList.add('on');
+  document.getElementById('drawer').classList.add('on');
+}
+
+function closeDrawer() {
+  document.getElementById('overlay').classList.remove('on');
+  document.getElementById('drawer').classList.remove('on');
+}
+
+function renderDrawer() {
+  var c = document.getElementById('ditems');
+  var ks = Object.keys(cart);
+  if (!ks.length) {
+    c.innerHTML = '<div class="empty-c"><div class="empty-ico">◈</div><div>سلتك فارغة — أضف شيئاً!</div></div>';
+    return;
+  }
+  var h = '';
+  ks.forEach(function(k) {
+    var x = cart[k];
+    h += '<div class="ci-row">';
+    h += '<div class="ci-ico">' + x.ico + '</div>';
+    h += '<div class="ci-info"><div class="ci-name">' + x.name + '</div><div class="ci-price">' + (x.price*x.qty) + ' درهم</div></div>';
+    h += '<div class="ci-qty">';
+    h += '<button class="qb" data-k="' + k + '" data-a="m">−</button>';
+    h += '<div class="qn">' + x.qty + '</div>';
+    h += '<button class="qb" data-k="' + k + '" data-a="p">+</button>';
+    h += '</div></div>';
+  });
+  c.innerHTML = h;
+  c.querySelectorAll('.qb').forEach(function(b) {
+    b.onclick = function() {
+      var k = this.getAttribute('data-k');
+      var a = this.getAttribute('data-a');
+      if (a === 'm') { if (cart[k]) { cart[k].qty--; if (cart[k].qty<=0) delete cart[k]; } }
+      else { if (cart[k]) cart[k].qty++; }
+      refreshQty(k);
+      refreshCart();
+      renderDrawer();
+    };
+  });
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 1800);
+}
+
+// ===== FORM =====
+var dtype = 'od';
+var dlabels = {od:'توصيل للمنزل 🛵', op:'استلام من المحل ◈', odi:'أكل في المحل 🍽️'};
+
+function openForm() {
+  var ks = Object.keys(cart); var total = 0; var h = '';
+  ks.forEach(function(k){ var x=cart[k]; var s=x.price*x.qty; total+=s; h+='<div class="sum-item"><span class="sum-item-n">'+x.name+' x'+x.qty+'</span><span class="sum-item-p">'+s+' درهم</span></div>'; });
+  document.getElementById('sumItems').innerHTML = h;
+  document.getElementById('sumTotal').textContent = total;
+  document.getElementById('fmodal').classList.add('on');
+}
+
+function closeForm() { document.getElementById('fmodal').classList.remove('on'); }
+
+// ===== INIT =====
+renderMenu('all');
+
+// TABS
+document.querySelectorAll('.tab').forEach(function(tab) {
+  tab.onclick = function() {
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+    this.classList.add('on');
+    renderMenu(this.getAttribute('data-f'));
+  };
+});
+
+// SPEC CARDS
+function addSpec(n, p) {
+  if (cart[n]) cart[n].qty++; else cart[n]={name:n, price:p, ico:'🎁', qty:1};
+  refreshCart();
+  showToast('✦ ' + n + ' — تمت الإضافة');
+}
+document.getElementById('s1').onclick = function(){ addSpec('باقة العائلة', 180); };
+document.getElementById('s2').onclick = function(){ addSpec('باقة الصديقين', 90); };
+document.getElementById('s3').onclick = function(){ addSpec('باقة Solo', 55); };
+
+// NAV
+document.getElementById('navCartBtn').onclick = openDrawer;
+document.getElementById('floatBtn').onclick = openDrawer;
+document.getElementById('overlay').onclick = closeDrawer;
+document.getElementById('dclose').onclick = closeDrawer;
+
+document.getElementById('checkoutBtn').onclick = function() {
+  if (!Object.keys(cart).length) return;
+  closeDrawer();
+  openForm();
+};
+
+['od','op','odi'].forEach(function(id) {
+  document.getElementById(id).onclick = function() {
+    ['od','op','odi'].forEach(function(x){ var el=document.getElementById(x); el.classList.remove('sel'); el.querySelector('.dopt-chk').textContent=''; });
+    this.classList.add('sel');
+    this.querySelector('.dopt-chk').textContent = '✓';
+    dtype = id;
+    document.getElementById('awrap').classList[id==='od'?'add':'remove']('show');
+  };
+});
+
+document.getElementById('confirmBtn').onclick = function() {
+  var nm=document.getElementById('iname').value.trim();
+  var ph=document.getElementById('iphone').value.trim();
+  var ad=document.getElementById('iaddr').value.trim();
+  var mk=document.getElementById('imark').value.trim();
+  var nt=document.getElementById('inotes').value.trim();
+  var ok=true;
+  ['iname','iphone','iaddr'].forEach(function(id){ document.getElementById(id).classList.remove('err'); });
+  ['ename','ephone','eaddr'].forEach(function(id){ document.getElementById(id).classList.remove('show'); });
+  if(!nm){document.getElementById('iname').classList.add('err');document.getElementById('ename').classList.add('show');ok=false;}
+  if(!ph||ph.length<9){document.getElementById('iphone').classList.add('err');document.getElementById('ephone').classList.add('show');ok=false;}
+  if(dtype==='od'&&!ad){document.getElementById('iaddr').classList.add('err');document.getElementById('eaddr').classList.add('show');ok=false;}
+  if(!ok)return;
+  var ks=Object.keys(cart);
+  var lines=ks.map(function(k){var x=cart[k];return '◆ '+x.name+' x'+x.qty+' — '+(x.price*x.qty)+' درهم';});
+  var total=Object.values(cart).reduce(function(a,x){return a+x.price*x.qty;},0);
+  var msg='السلام عليكم ◈ Snack Atlas\n\n✦ طلب جديد ✦\n━━━━━━━━━━━━━━\n'+lines.join('\n')+'\n━━━━━━━━━━━━━━\n◆ المجموع: '+total+' درهم\n\n✦ معلومات الزبون:\n◆ الاسم: '+nm+'\n◆ الهاتف: '+ph+'\n◆ طريقة الاستلام: '+dlabels[dtype]+'\n';
+  if(dtype==='od'){msg+='◆ العنوان: '+ad+'\n';if(mk)msg+='◆ علامة مميزة: '+mk+'\n';}
+  if(nt)msg+='◆ ملاحظات: '+nt+'\n';
+  msg+='\nشكراً ✦';
+  window.open('https://wa.me/212661234567?text='+encodeURIComponent(msg));
+};
+
+document.getElementById('backBtn').onclick = function(){ closeForm(); openDrawer(); };
+</script>
+
+</body>
+</html>
