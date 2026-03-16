@@ -423,8 +423,8 @@
     }
 
     .item-image {
-      width: 100px;
-      height: 100px;
+      width: 120px;  /* تم التعديل من 100px إلى 120px */
+      height: 120px; /* تم التعديل من 100px إلى 120px */
       border-radius: 16px;
       overflow: hidden;
       flex-shrink: 0;
@@ -441,7 +441,8 @@
     .item-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;    /* تم التعديل من cover إلى contain */
+      background-color: var(--surface); /* لون خلفية متناسق */
       display: block;
     }
 
