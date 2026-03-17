@@ -143,29 +143,6 @@ nav.scrolled {
 .theme-toggle:active {
   transform: scale(0.95);
 }
-.status-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--green-light);
-  border: 1px solid rgba(82, 183, 136, 0.3);
-  border-radius: 30px;
-  padding: 6px 14px;
-  font-size: 11px;
-  color: var(--green);
-  font-weight: 700;
-}
-.live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  animation: pulse 1.5s infinite;
-}
-@keyframes pulse {
-  0%,100%{opacity:1;transform:scale(1);}
-  50%{opacity:0.5;transform:scale(1.2);}
-}
 .cart-button {
   background: var(--red);
   border: none;
