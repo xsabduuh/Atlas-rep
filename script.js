@@ -1,4 +1,6 @@
+// ========== قائمة الطعام ==========
 const MENU_ITEMS = [
+  // ... (نفس المحتوى السابق، لا تغيير) ...
   { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة', recommended: ['drink1', 'extra1'], customizations: [ { id: 'cheese', name: 'جبن إضافي', price: 5 }, { id: 'sauce', name: 'صوص خاص', price: 3 }, { id: 'onion', name: 'بدون بصل', price: 0 } ] },
   { id:'burger2', name:'برغر دجاج مقرمش', desc:'فيليه دجاج مقرمش + جبن + خس + مايونيز', price:45, icon:'🍔', image:'burger ch.JPG', badge:{type:'gold',text:'✦ جديد'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة', recommended: ['drink2'], customizations: [ { id: 'cheese', name: 'جبن إضافي', price: 5 }, { id: 'spicy', name: 'صوص حار', price: 2 } ] },
   { id:'burger3', name:'برغر نباتي', desc:'فطيرة نباتية + طماطم + خس + صوص طحينة', price:40, icon:'🥬', image:'burger v.JPG', badge:null, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة', recommended: ['drink3'], customizations: [ { id: 'avocado', name: 'أفوكادو', price: 8 } ] },
@@ -15,6 +17,7 @@ const MENU_ITEMS = [
   { id:'offer2', name:'عرض تاكوس', desc:'تاكوس أطلس + بطاطس + فانتا', price:49, icon:'🌮', image:'offer2.jpg', badge:{type:'red',text:'🔥 عرض'}, category:'offers', categoryAr:'العروض', time:'15-20 دقيقة', combo: ['tacos1', 'extra1', 'drink2'], comboPrice: 49 }
 ];
 
+// ========== المتغيرات العامة ==========
 let cart = JSON.parse(localStorage.getItem('atlasCart')) || {};
 let lastAddedItem = null;
 let deliveryMethod = 'delivery';
@@ -24,9 +27,22 @@ let customizationItem = null;
 let customizationExtras = {};
 let orderHistory = JSON.parse(localStorage.getItem('atlasOrderHistory')) || [];
 
+// ========== تفعيل الوضع المحفوظ (Light/Dark) ==========
+(function loadTheme() {
+  const savedTheme = localStorage.getItem('atlasTheme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-theme');
+  } else {
+    // اختياري: التأكد من عدم وجود الكلاس إذا كان المحفوظ dark
+    document.documentElement.classList.remove('light-theme');
+  }
+})();
+
+// ========== دوال مساعدة ==========
 function saveCart() { localStorage.setItem('atlasCart', JSON.stringify(cart)); }
 
 function updateCartUI() {
+  // ... (نفس الكود السابق) ...
   const totalItems = Object.values(cart).reduce((s,i)=>s+i.qty,0);
   const totalPrice = Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);
   document.getElementById('cartBadge').style.display = totalItems>0?'flex':'none';
@@ -66,6 +82,7 @@ function updateCartUI() {
 }
 
 function showToast(msg, undo = false, actions = []) {
+  // ... (نفس الكود السابق) ...
   const t = document.getElementById('toast');
   t.innerHTML = msg;
   if (undo) {
@@ -81,6 +98,7 @@ function showToast(msg, undo = false, actions = []) {
 }
 
 function addToCart(id, extras = {}) {
+  // ... (نفس الكود السابق) ...
   const item = MENU_ITEMS.find(i => i.id === id);
   if (!item) return;
   let finalPrice = item.price;
@@ -133,6 +151,7 @@ function updateCartItem(id, delta) {
 function undoLastAdd() { if (lastAddedItem) { updateCartItem(lastAddedItem, -1); lastAddedItem = null; } }
 
 function openCustomization(itemId) {
+  // ... (نفس الكود السابق) ...
   const item = MENU_ITEMS.find(i => i.id === itemId);
   if (!item) return;
   customizationItem = item;
@@ -158,6 +177,7 @@ function openCustomization(itemId) {
 }
 
 function updateCustomizationTotal() {
+  // ... (نفس الكود السابق) ...
   if (!customizationItem) return;
   let total = customizationItem.price;
   const checkboxes = document.querySelectorAll('#customizationOptions input:checked');
@@ -189,6 +209,7 @@ function closeCartDrawer() {
 }
 
 function openOrderForm() {
+  // ... (نفس الكود السابق) ...
   if (Object.keys(cart).length === 0) return;
   const items = Object.values(cart); 
   const total = items.reduce((s,i) => s + i.price * i.qty, 0);
@@ -213,6 +234,7 @@ function initDeliveryOptions() {
 }
 
 function validateForm() {
+  // ... (نفس الكود السابق) ...
   let ok = true;
   const n = document.getElementById('customerName').value.trim();
   const p = document.getElementById('customerPhone').value.trim();
@@ -250,6 +272,7 @@ function validateForm() {
 }
 
 function confirmOrder() {
+  // ... (نفس الكود السابق) ...
   if (!validateForm()) return;
   const n = document.getElementById('customerName').value.trim(), 
         p = document.getElementById('customerPhone').value.trim(), 
@@ -311,7 +334,9 @@ function toggleScrollTop() {
   document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 300); 
 }
 
+// ========== دالة عرض المنيو (بدون onclick) ==========
 function renderMenu(filter = currentFilter) {
+  // ... (نفس الكود السابق) ...
   const container = document.getElementById('menuCategories');
   container.innerHTML = '';
 
@@ -392,6 +417,7 @@ function renderMenu(filter = currentFilter) {
   });
 }
 
+// ========== التهيئة عند تحميل الصفحة ==========
 document.addEventListener('DOMContentLoaded', function() {
   renderMenu();
   updateCartUI();
@@ -399,6 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initDeliveryOptions();
   updateOfferBannerBasedOnTime();
 
+  // مستمعات الأحداث للعناصر الثابتة
   document.getElementById('cartButton').addEventListener('click', openCartDrawer);
   document.getElementById('floatingCart').addEventListener('click', openCartDrawer);
   document.getElementById('closeDrawerBtn').addEventListener('click', closeCartDrawer);
@@ -422,6 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else alert('المتصفح لا يدعم تحديد الموقع');
   });
 
+  // مستمع حدث للتغيير على خيارات التخصيص
   document.getElementById('customizationOptions').addEventListener('change', (e) => {
     if (e.target.type === 'checkbox') updateCustomizationTotal();
   });
@@ -443,31 +471,50 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('customizationModal').classList.remove('active');
   });
 
+  // ========== زر الوضع الليلي/النهاري مع حفظ الحالة ==========
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    document.documentElement.classList.toggle('light-theme');
+    // تحديث الأيقونة (اختياري)
+    const isLight = document.documentElement.classList.contains('light-theme');
+    themeToggle.textContent = isLight ? '🌑' : '🌓';
+    // حفظ الحالة
+    localStorage.setItem('atlasTheme', isLight ? 'light' : 'dark');
+  });
+
+  // ========== مستمع حدث للنقر على الأزرار الديناميكية (محسّن) ==========
   const menuContainer = document.getElementById('menuCategories');
   menuContainer.addEventListener('click', function(e) {
+    // نبحث عن أقرب زر للعنصر الذي تم النقر عليه
     const button = e.target.closest('button');
-    if (!button) {
-      const itemName = e.target.closest('.item-name');
-      if (itemName) {
-        const id = itemName.dataset.id;
+    if (button) {
+      if (button.classList.contains('quick-add')) {
+        const id = button.dataset.id;
+        if (id) addToCart(id);
+        e.preventDefault();
+      } else if (button.classList.contains('btn-plus')) {
+        const id = button.dataset.id;
         if (id) openCustomization(id);
+        e.preventDefault();
+      } else if (button.classList.contains('btn-minus')) {
+        const id = button.dataset.id;
+        const delta = parseInt(button.dataset.delta);
+        if (id && !isNaN(delta)) updateCartItem(id, delta);
+        e.preventDefault();
       }
-      return;
+      return; // إذا وجدنا زر، نخرج
     }
 
-    if (button.classList.contains('quick-add')) {
-      const id = button.dataset.id;
-      if (id) addToCart(id);
-    } else if (button.classList.contains('btn-plus')) {
-      const id = button.dataset.id;
+    // إذا لم يكن الزر، نتحقق من اسم المنتج
+    const itemName = e.target.closest('.item-name');
+    if (itemName) {
+      const id = itemName.dataset.id;
       if (id) openCustomization(id);
-    } else if (button.classList.contains('btn-minus')) {
-      const id = button.dataset.id;
-      const delta = parseInt(button.dataset.delta);
-      if (id && !isNaN(delta)) updateCartItem(id, delta);
+      e.preventDefault();
     }
   });
 
+  // تحديث الكميات بشكل دوري
   setInterval(() => {
     for (const id in cart) {
       const el = document.getElementById(`qty-${id}`);
@@ -478,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', () => { updateProgressBar(); toggleScrollTop(); });
 });
 
+// تصدير الدوال المهمة إلى النطاق العام (للأزرار الثابتة)
 window.addToCart = addToCart;
 window.updateCartItem = updateCartItem;
 window.undoLastAdd = undoLastAdd;
