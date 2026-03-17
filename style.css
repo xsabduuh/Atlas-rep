@@ -16,6 +16,23 @@
   --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.8);
   --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --nav-bg: rgba(12, 10, 8, 0.96);
+  --text-color: #f8f4f0;
+  --link-color: #f8f4f0;
+  --link-hover: #f4a261;
+  --badge-green-bg: rgba(82, 183, 136, 0.1);
+  --badge-green-border: rgba(82, 183, 136, 0.3);
+  --badge-gold-bg: rgba(244, 162, 97, 0.1);
+  --badge-gold-border: rgba(244, 162, 97, 0.3);
+  --badge-red-bg: rgba(230, 57, 70, 0.1);
+  --badge-red-border: rgba(230, 57, 70, 0.3);
+  --toast-bg: #1c1916;
+  --toast-border: rgba(230, 57, 70, 0.3);
+  --input-bg: #1c1916;
+  --input-border: #2a2520;
+  --input-focus: #e63946;
+  --btn-checkout-bg: linear-gradient(135deg, #e63946, #c1121f);
+  --btn-confirm-bg: #25d366;
+  --btn-confirm-shadow: rgba(37, 211, 102, 0.3);
 }
 
 :root.light-theme {
@@ -35,6 +52,23 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.2);
   --nav-bg: rgba(248, 244, 240, 0.96);
+  --text-color: #0c0a08;
+  --link-color: #0c0a08;
+  --link-hover: #c97c3c;
+  --badge-green-bg: rgba(42, 157, 143, 0.1);
+  --badge-green-border: rgba(42, 157, 143, 0.3);
+  --badge-gold-bg: rgba(201, 124, 60, 0.1);
+  --badge-gold-border: rgba(201, 124, 60, 0.3);
+  --badge-red-bg: rgba(230, 57, 70, 0.1);
+  --badge-red-border: rgba(230, 57, 70, 0.3);
+  --toast-bg: #ffffff;
+  --toast-border: rgba(230, 57, 70, 0.3);
+  --input-bg: #ffffff;
+  --input-border: #ddd;
+  --input-focus: #e63946;
+  --btn-checkout-bg: linear-gradient(135deg, #e63946, #c1121f);
+  --btn-confirm-bg: #25d366;
+  --btn-confirm-shadow: rgba(37, 211, 102, 0.3);
 }
 
 * {
@@ -52,7 +86,7 @@ html {
 body {
   font-family: 'Cairo', sans-serif;
   background: var(--bg);
-  color: var(--white);
+  color: var(--text-color);
   overflow-x: hidden;
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
@@ -180,12 +214,12 @@ nav.scrolled {
 }
 
 a, a:visited {
-  color: var(--white);
+  color: var(--link-color);
   text-decoration: none;
   transition: color 0.2s;
 }
 a:hover {
-  color: var(--gold);
+  color: var(--link-hover);
 }
 
 .offer-banner {
@@ -397,6 +431,7 @@ a:hover {
   justify-content: center;
   font-size: 42px;
   background: var(--surface);
+  color: var(--text-color);
 }
 
 .item-content {
@@ -419,19 +454,19 @@ a:hover {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .badge-green {
-  background: var(--green-light);
+  background: var(--badge-green-bg);
   color: var(--green);
-  border: 1px solid rgba(82,183,136,0.5);
+  border: 1px solid var(--badge-green-border);
 }
 .badge-gold {
-  background: var(--gold-light);
+  background: var(--badge-gold-bg);
   color: var(--gold);
-  border: 1px solid rgba(244,162,97,0.5);
+  border: 1px solid var(--badge-gold-border);
 }
 .badge-red {
-  background: var(--red-light);
+  background: var(--badge-red-bg);
   color: var(--red);
-  border: 1px solid rgba(230,57,70,0.5);
+  border: 1px solid var(--badge-red-border);
 }
 .item-name {
   font-size: 18px;
@@ -439,6 +474,7 @@ a:hover {
   margin-bottom: 6px;
   cursor: pointer;
   line-height: 1.3;
+  color: var(--text-color);
 }
 .item-name:hover {
   color: var(--gold);
@@ -491,7 +527,7 @@ a:hover {
 .btn-minus {
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text-color);
 }
 .btn-plus {
   background: var(--red);
@@ -510,6 +546,7 @@ a:hover {
   font-weight: 800;
   min-width: 28px;
   text-align: center;
+  color: var(--text-color);
 }
 .quick-add {
   background: var(--red);
@@ -572,6 +609,7 @@ a:hover {
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 4px;
+  color: var(--text-color);
 }
 .suggestion-price {
   font-family: 'Bebas Neue', sans-serif;
@@ -633,6 +671,7 @@ a:hover {
   font-size: 16px;
   font-weight: 800;
   margin-bottom: 4px;
+  color: var(--text-color);
 }
 .info-text {
   font-size: 13px;
@@ -642,7 +681,7 @@ a:hover {
 .location-btn {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text-color);
   padding: 8px 14px;
   border-radius: 40px;
   font-size: 13px;
@@ -703,8 +742,8 @@ footer {
   top: 80px;
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
-  background: var(--surface-2);
-  border: 1px solid rgba(230,57,70,0.3);
+  background: var(--toast-bg);
+  border: 1px solid var(--toast-border);
   border-radius: 16px;
   padding: 14px 24px;
   font-size: 14px;
@@ -718,6 +757,7 @@ footer {
   display: flex;
   align-items: center;
   gap: 12px;
+  color: var(--text-color);
 }
 .toast.show {
   opacity: 1;
@@ -800,7 +840,7 @@ footer {
 .drawer-close {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text-color);
   width: 40px;
   height: 40px;
   border-radius: 12px;
@@ -828,7 +868,7 @@ footer {
   align-items: center;
   gap: 14px;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
 }
 .cart-item-icon {
   width: 60px;
@@ -842,6 +882,7 @@ footer {
   border: 1px solid var(--border);
   flex-shrink: 0;
   overflow: hidden;
+  color: var(--text-color);
 }
 .cart-item-info {
   flex: 1;
@@ -850,6 +891,7 @@ footer {
   font-size: 14px;
   font-weight: 800;
   margin-bottom: 3px;
+  color: var(--text-color);
 }
 .cart-item-price {
   font-size: 13px;
@@ -864,7 +906,7 @@ footer {
 .cart-qty-btn {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text-color);
   width: 34px;
   height: 34px;
   border-radius: 10px;
@@ -885,6 +927,7 @@ footer {
   font-weight: 800;
   min-width: 24px;
   text-align: center;
+  color: var(--text-color);
 }
 .empty-cart {
   text-align: center;
@@ -896,6 +939,7 @@ footer {
   font-size: 40px;
   opacity: 0.3;
   margin-bottom: 12px;
+  color: var(--text-color);
 }
 .drawer-footer {
   padding: 16px 20px;
@@ -920,7 +964,7 @@ footer {
 }
 .btn-checkout {
   width: 100%;
-  background: linear-gradient(135deg, var(--red), #c1121f);
+  background: var(--btn-checkout-bg);
   color: white;
   border: none;
   padding: 16px;
@@ -943,7 +987,7 @@ footer {
   width: 100%;
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text-color);
   padding: 14px;
   border-radius: 20px;
   font-size: 15px;
@@ -1049,6 +1093,7 @@ footer {
 }
 .summary-item-price {
   font-weight: 700;
+  color: var(--text-color);
 }
 .summary-total {
   display: flex;
@@ -1058,6 +1103,7 @@ footer {
 }
 .summary-total-label {
   font-weight: 800;
+  color: var(--text-color);
 }
 .summary-total-value {
   font-family: 'Bebas Neue', sans-serif;
@@ -1083,18 +1129,18 @@ footer {
 }
 .form-input {
   width: 100%;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 16px;
   padding: 16px;
   font-size: 15px;
   font-family: 'Cairo', sans-serif;
-  color: var(--white);
+  color: var(--text-color);
   outline: none;
   transition: var(--transition);
 }
 .form-input:focus {
-  border-color: var(--red);
+  border-color: var(--input-focus);
   box-shadow: 0 0 0 2px rgba(230,57,70,0.2);
 }
 .form-input.error {
@@ -1128,7 +1174,7 @@ footer {
 }
 .delivery-option.selected {
   border-color: var(--red);
-  background: rgba(230,57,70,0.05);
+  background: var(--red-light);
 }
 .delivery-option:hover {
   border-color: var(--gold);
@@ -1144,6 +1190,7 @@ footer {
   font-size: 15px;
   font-weight: 800;
   margin-bottom: 3px;
+  color: var(--text-color);
 }
 .option-desc {
   font-size: 12px;
@@ -1176,7 +1223,7 @@ footer {
 }
 .btn-confirm {
   width: 100%;
-  background: #25d366;
+  background: var(--btn-confirm-bg);
   color: white;
   border: none;
   padding: 16px;
@@ -1190,11 +1237,11 @@ footer {
   gap: 8px;
   margin-bottom: 12px;
   transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+  box-shadow: 0 4px 15px var(--btn-confirm-shadow);
 }
 .btn-confirm:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(37,211,102,0.5);
+  box-shadow: 0 8px 25px var(--btn-confirm-shadow);
 }
 .btn-confirm:active {
   transform: scale(0.98);
@@ -1308,7 +1355,7 @@ footer {
   border-radius: 50%;
   background: var(--surface-2);
   border: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
