@@ -17,6 +17,7 @@
   --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --nav-bg: rgba(12, 10, 8, 0.96);
   --text-color: #f8f4f0;
+  --text-color-inverse: #0c0a08;
   --link-color: #f8f4f0;
   --link-hover: #f4a261;
   --badge-green-bg: rgba(82, 183, 136, 0.1);
@@ -33,6 +34,13 @@
   --btn-checkout-bg: linear-gradient(135deg, #e63946, #c1121f);
   --btn-confirm-bg: #25d366;
   --btn-confirm-shadow: rgba(37, 211, 102, 0.3);
+  --cart-item-border: rgba(255, 255, 255, 0.05);
+  --drawer-close-color: #f8f4f0;
+  --filter-tab-bg: #1c1916;
+  --filter-tab-color: #8a8078;
+  --filter-tab-active-bg: #e63946;
+  --filter-tab-active-color: white;
+  --footer-text: #8a8078;
 }
 
 :root.light-theme {
@@ -53,6 +61,7 @@
   --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.2);
   --nav-bg: rgba(248, 244, 240, 0.96);
   --text-color: #0c0a08;
+  --text-color-inverse: #f8f4f0;
   --link-color: #0c0a08;
   --link-hover: #c97c3c;
   --badge-green-bg: rgba(42, 157, 143, 0.1);
@@ -69,6 +78,13 @@
   --btn-checkout-bg: linear-gradient(135deg, #e63946, #c1121f);
   --btn-confirm-bg: #25d366;
   --btn-confirm-shadow: rgba(37, 211, 102, 0.3);
+  --cart-item-border: rgba(0, 0, 0, 0.05);
+  --drawer-close-color: #0c0a08;
+  --filter-tab-bg: #f0f0f0;
+  --filter-tab-color: #5a5a5a;
+  --filter-tab-active-bg: #e63946;
+  --filter-tab-active-color: white;
+  --footer-text: #5a5a5a;
 }
 
 * {
@@ -271,9 +287,9 @@ a:hover {
   display: none;
 }
 .filter-tab {
-  background: var(--surface-2);
+  background: var(--filter-tab-bg);
   border: 1px solid var(--border);
-  color: var(--gray);
+  color: var(--filter-tab-color);
   padding: 8px 20px;
   border-radius: 30px;
   font-size: 14px;
@@ -283,9 +299,9 @@ a:hover {
   flex-shrink: 0;
 }
 .filter-tab.active {
-  background: var(--red);
-  color: white;
-  border-color: var(--red);
+  background: var(--filter-tab-active-bg);
+  color: var(--filter-tab-active-color);
+  border-color: var(--filter-tab-active-bg);
   box-shadow: 0 4px 10px rgba(230,57,70,0.3);
 }
 .filter-tab:hover {
@@ -324,6 +340,7 @@ a:hover {
   line-height: 1.1;
   margin-bottom: 24px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  color: var(--text-color);
 }
 .section-title span { color: var(--gold); }
 
@@ -727,7 +744,7 @@ footer {
 }
 .footer-link {
   font-size: 13px;
-  color: var(--gray);
+  color: var(--footer-text);
   text-decoration: none;
   transition: var(--transition);
 }
@@ -840,7 +857,7 @@ footer {
 .drawer-close {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  color: var(--text-color);
+  color: var(--drawer-close-color);
   width: 40px;
   height: 40px;
   border-radius: 12px;
@@ -868,7 +885,7 @@ footer {
   align-items: center;
   gap: 14px;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  border-bottom: 1px solid var(--cart-item-border);
 }
 .cart-item-icon {
   width: 60px;
