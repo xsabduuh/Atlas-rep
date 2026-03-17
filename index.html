@@ -24,19 +24,19 @@
       --transition: all 0.2s ease;
     }
     :root.light-theme {
-      --bg: #f8f4f0;
-      --surface: #ffffff;
-      --surface-2: #f0f0f0;
-      --border: #ddd;
+      --bg: linear-gradient(180deg, #5a4a3a 0%, #f8e4d0 100%);
+      --surface: #e8d8c0;
+      --surface-2: #f0e0c8;
+      --border: #c0a890;
       --red: #e63946;
       --red-light: rgba(230, 57, 70, 0.1);
-      --gold: #c97c3c;
-      --gold-light: rgba(201, 124, 60, 0.1);
+      --gold: #b87c4b;
+      --gold-light: rgba(184, 124, 75, 0.1);
       --green: #2a9d8f;
       --green-light: rgba(42, 157, 143, 0.1);
-      --white: #0c0a08;
-      --gray: #5a5a5a;
-      --gray-light: #8a8a8a;
+      --white: #2c1e12;
+      --gray: #6b4f3a;
+      --gray-light: #a58e7a;
       --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
     * {
@@ -477,7 +477,6 @@
 
   <script>
     (function() {
-      // قائمة الطعام (مبسطة بدون customizations و recommended)
       const MENU_ITEMS = [
         { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة' },
         { id:'burger2', name:'برغر دجاج مقرمش', desc:'فيليه دجاج مقرمش + جبن + خس + مايونيز', price:45, icon:'🍔', image:'burger ch.JPG', badge:{type:'gold',text:'✦ جديد'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة' },
@@ -501,13 +500,11 @@
       const deliveryLabels = { delivery:'توصيل للمنزل', pickup:'استلام من المحل', dinein:'أكل في المحل' };
       let currentFilter = 'all';
 
-      // Theme
       (function initTheme() {
         const savedTheme = localStorage.getItem('atlasTheme');
         if (savedTheme === 'light') {
           document.documentElement.classList.add('light-theme');
         }
-        // الأيقونة ستضبط لاحقاً في DOMContentLoaded
       })();
 
       function saveCart() { localStorage.setItem('atlasCart', JSON.stringify(cart)); }
@@ -778,7 +775,6 @@
         initDeliveryOptions();
         updateOfferBannerBasedOnTime();
 
-        // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
         const savedTheme = localStorage.getItem('atlasTheme');
         themeToggle.textContent = savedTheme === 'light' ? '🌑' : '🌓';
@@ -789,7 +785,6 @@
           localStorage.setItem('atlasTheme', isLight ? 'light' : 'dark');
         });
 
-        // Event delegation for dynamic buttons
         const menuContainer = document.getElementById('menuCategories');
         menuContainer.addEventListener('click', function(e) {
           const button = e.target.closest('button');
@@ -799,7 +794,7 @@
               if (id) addToCart(id);
             } else if (button.classList.contains('btn-plus')) {
               const id = button.dataset.id;
-              if (id) addToCart(id); // في النسخة المبسطة، + يضيف مباشرة
+              if (id) addToCart(id);
             } else if (button.classList.contains('btn-minus')) {
               const id = button.dataset.id;
               const delta = parseInt(button.dataset.delta);
@@ -815,7 +810,6 @@
           }
         });
 
-        // Update quantities periodically
         setInterval(() => {
           for (const id in cart) {
             const el = document.getElementById(`qty-${id}`);
@@ -825,7 +819,6 @@
           }
         }, 200);
 
-        // Static buttons
         document.getElementById('cartButton').addEventListener('click', openCartDrawer);
         document.getElementById('floatingCart').addEventListener('click', openCartDrawer);
         document.getElementById('closeDrawerBtn').addEventListener('click', closeCartDrawer);
@@ -849,7 +842,6 @@
         window.addEventListener('scroll', () => { updateProgressBar(); toggleScrollTop(); });
       });
 
-      // Expose functions globally
       window.addToCart = addToCart;
       window.updateCartItem = updateCartItem;
     })();
