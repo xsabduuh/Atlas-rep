@@ -405,7 +405,7 @@
 
   <section class="section" id="info">
     <div class="section-header"><div class="section-line"></div><div class="section-eyebrow">✦ تواصل معنا</div></div>
-    <h2 class="section-title">معلومات <span>المحل</span></h2>
+    <h2 class="section-title">معلومات <span>المطعم</span></h2>
     <div class="info-grid">
       <div class="info-card"><div class="info-icon icon-red">📍</div><div><div class="info-title">◆ العنوان</div><div class="info-text">شارع محمد الخامس، جيليز — مراكش</div></div></div>
       <div class="info-card"><div class="info-icon icon-gold">📞</div><div><div class="info-title">◆ الهاتف والواتساب</div><div class="info-text"><a href="tel:0524382917">0524-382-917</a> ◆ <a href="tel:0661234567">0661-234-567</a></div></div></div>
@@ -454,8 +454,8 @@
           <div class="form-label">✦ طريقة الاستلام <span>*</span></div>
           <div class="delivery-options" id="deliveryOptions">
             <div class="delivery-option selected" data-value="delivery"><div class="option-icon">🛵</div><div class="option-info"><div class="option-name">◆ توصيل للمنزل</div><div class="option-desc">30-45 دقيقة ◆ داخل جيليز مجاناً</div></div><div class="option-check">✓</div></div>
-            <div class="delivery-option" data-value="pickup"><div class="option-icon">◈</div><div class="option-info"><div class="option-name">◆ استلام من المحل</div><div class="option-desc">جاهز في 15 دقيقة</div></div><div class="option-check"></div></div>
-            <div class="delivery-option" data-value="dinein"><div class="option-icon">🍽️</div><div class="option-info"><div class="option-name">◆ أكل في المحل</div><div class="option-desc">جو هادئ ◆ واي فاي مجاني</div></div><div class="option-check"></div></div>
+            <div class="delivery-option" data-value="pickup"><div class="option-icon">◈</div><div class="option-info"><div class="option-name">◆ استلام من المطعم</div><div class="option-desc">جاهز في 15 دقيقة</div></div><div class="option-check"></div></div>
+            <div class="delivery-option" data-value="dinein"><div class="option-icon">🍽️</div><div class="option-info"><div class="option-name">◆ أكل في المطعم</div><div class="option-desc">جو هادئ ◆ واي فاي مجاني</div></div><div class="option-check"></div></div>
           </div>
         </div>
         <div class="form-group">
@@ -511,7 +511,7 @@
       let cart = JSON.parse(localStorage.getItem('atlasCart')) || {};
       let lastAddedItem = null;
       let deliveryMethod = 'delivery';
-      const deliveryLabels = { delivery:'توصيل للمنزل', pickup:'استلام من المحل', dinein:'أكل في المحل' };
+      const deliveryLabels = { delivery:'توصيل للمنزل', pickup:'استلام من المطعم', dinein:'أكل في المطعم' };
       let currentFilter = 'all';
 
       // Theme initialization
