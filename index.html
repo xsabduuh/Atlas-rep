@@ -1322,26 +1322,26 @@
     // ========== قائمة الطعام الموسعة مع الأقسام ==========
     const MENU_ITEMS = [
       // قسم البرغر
-      { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger1.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر' },
+      { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر' },
       { id:'burger2', name:'برغر دجاج مقرمش', desc:'فيليه دجاج مقرمش + جبن + خس + مايونيز', price:45, icon:'🍔', image:'burger2.jpg', badge:{type:'gold',text:'✦ جديد'}, category:'burgers', categoryAr:'البرغر' },
-      { id:'burger3', name:'برغر نباتي', desc:'فطيرة نباتية + طماطم + خس + صوص طحينة', price:40, icon:'🥬', image:'burger3.jpg', badge:null, category:'burgers', categoryAr:'البرغر' },
+      { id:'burger3', name:'برغر نباتي', desc:'فطيرة نباتية + طماطم + خس + صوص طحينة', price:40, icon:'🥬', image:'burger ch.JPG', badge:null, category:'burgers', categoryAr:'البرغر' },
 
       // قسم التاكوس
-      { id:'tacos1', name:'تاكوس أطلس', desc:'ورق تاكوس + لحم مفروم + فريت + صوص الڭار', price:38, icon:'🌮', image:'tacos1.jpg', badge:{type:'gold',text:'✦ الأكثر مبيعاً'}, category:'tacos', categoryAr:'التاكوس' },
+      { id:'tacos1', name:'تاكوس أطلس', desc:'ورق تاكوس + لحم مفروم + فريت + صوص الڭار', price:38, icon:'🌮', image:'Tacos.JPG', badge:{type:'gold',text:'✦ الأكثر مبيعاً'}, category:'tacos', categoryAr:'التاكوس' },
       { id:'tacos2', name:'تاكوس دجاج', desc:'ورق تاكوس + دجاج + فريت + صوص أبيض', price:42, icon:'🌮', image:'tacos2.jpg', badge:null, category:'tacos', categoryAr:'التاكوس' },
 
       // قسم المشروبات
-      { id:'drink1', name:'كوكاكولا', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'coca.jpg', badge:null, category:'drinks', categoryAr:'المشروبات' },
+      { id:'drink1', name:'كوكاكولا', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'coca.JPG', badge:null, category:'drinks', categoryAr:'المشروبات' },
       { id:'drink2', name:'فانتا برتقال', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'fanta.jpg', badge:null, category:'drinks', categoryAr:'المشروبات' },
-      { id:'drink3', name:'ميرندا', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'mirinda.jpg', badge:null, category:'drinks', categoryAr:'المشروبات' },
+      { id:'drink3', name:'ميرندا', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'mirinda.JPG', badge:null, category:'drinks', categoryAr:'المشروبات' },
 
       // قسم الحلويات
-      { id:'dessert1', name:'بسبوسة بالقشطة', desc:'قطعة بسبوسة محشية قشطة', price:20, icon:'🍰', image:'dessert1.jpg', badge:{type:'green',text:'◈ حلو اليوم'}, category:'desserts', categoryAr:'الحلويات' },
-      { id:'dessert2', name:'كنافة ناعمة', desc:'كنافة بالجبن أو القشطة', price:25, icon:'🥮', image:'dessert2.jpg', badge:null, category:'desserts', categoryAr:'الحلويات' },
+      { id:'dessert1', name:'بسبوسة بالقشطة', desc:'قطعة بسبوسة محشية قشطة', price:20, icon:'🍰', image:'basbosa.JPG', badge:{type:'green',text:'◈ حلو اليوم'}, category:'desserts', categoryAr:'الحلويات' },
+      { id:'dessert2', name:'كنافة ناعمة', desc:'كنافة بالجبن أو القشطة', price:25, icon:'🥮', image:'kunafa.JPG', badge:null, category:'desserts', categoryAr:'الحلويات' },
 
       // قسم الإضافات
       { id:'extra1', name:'بطاطس مقلية', desc:'حجم عائلي مع كاتشب', price:18, icon:'🍟', image:'frites.jpg', badge:null, category:'extras', categoryAr:'إضافات' },
-      { id:'extra2', name:'صوص جبن', desc:'صوص جبن كريمي إضافي', price:8, icon:'🧀', image:'cheese.jpg', badge:null, category:'extras', categoryAr:'إضافات' }
+      { id:'extra2', name:'صوص جبن', desc:'صوص جبن كريمي إضافي', price:8, icon:'🧀', image:'cheese.JPG', badge:null, category:'extras', categoryAr:'إضافات' }
     ];
 
     let cart = JSON.parse(localStorage.getItem('atlasCart')) || {};
@@ -1553,18 +1553,18 @@
   <div style="display: none;">
     <p>الصور المطلوبة للموقع: (يجب وضعها في نفس مجلد الصفحة)</p>
     <ul>
-      <li>burger1.jpg – برغر أطلس الكبير</li>
-      <li>burger2.jpg – برغر دجاج مقرمش</li>
+      <li>burger.jpg – برغر أطلس الكبير</li>
+      <li>burger ch.JPG – برغر دجاج مقرمش</li>
       <li>burger3.jpg – برغر نباتي</li>
-      <li>tacos1.jpg – تاكوس أطلس</li>
+      <li>Tacos.JPG – تاكوس أطلس</li>
       <li>tacos2.jpg – تاكوس دجاج</li>
-      <li>coca.jpg – كوكاكولا</li>
+      <li>coca.JPG – كوكاكولا</li>
       <li>fanta.jpg – فانتا</li>
-      <li>mirinda.jpg – ميرندا</li>
+      <li>mirinda.JPG – ميرندا</li>
       <li>dessert1.jpg – بسبوسة</li>
-      <li>dessert2.jpg – كنافة</li>
+      <li>kunafa.JPG – كنافة</li>
       <li>frites.jpg – بطاطس مقلية</li>
-      <li>cheese.jpg – صوص جبن</li>
+      <li>cheese.JPG – صوص جبن</li>
     </ul>
   </div>
 </body>
