@@ -5,7 +5,1192 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>ATLAS SNACK | مطعم البرغر والتاكوس</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ========== المتغيرات ========== */
+    :root {
+      --bg: #0c0a08;
+      --surface: #141210;
+      --surface-2: #1c1916;
+      --border: #2a2520;
+      --red: #e63946;
+      --red-light: rgba(230, 57, 70, 0.1);
+      --gold: #f4a261;
+      --gold-light: rgba(244, 162, 97, 0.1);
+      --green: #52b788;
+      --green-light: rgba(82, 183, 136, 0.1);
+      --white: #f8f4f0;
+      --gray: #8a8078;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      --transition: all 0.2s ease;
+    }
+
+    /* الوضع الفاتح */
+    :root.light-theme {
+      --bg: #f8f4f0;
+      --surface: #ffffff;
+      --surface-2: #f0f0f0;
+      --border: #ddd;
+      --red: #e63946;
+      --red-light: rgba(230, 57, 70, 0.1);
+      --gold: #c97c3c;
+      --gold-light: rgba(201, 124, 60, 0.1);
+      --green: #2a9d8f;
+      --green-light: rgba(42, 157, 143, 0.1);
+      --white: #0c0a08;
+      --gray: #5a5a5a;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* ========== شريط التمرير ========== */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--surface);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--red);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold);
+    }
+
+    /* ========== شريط التقدم ========== */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      z-index: 1001;
+      transition: width 0.1s;
+    }
+
+    /* ========== شريط التنقل ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(var(--bg-rgb, 12,10,8), 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(230, 57, 70, 0.15);
+      transition: all 0.3s;
+    }
+    nav.scrolled {
+      padding: 8px 20px;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: var(--red);
+    }
+    .nav-logo b {
+      color: var(--gold);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .theme-toggle {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+    .theme-toggle:active {
+      transform: scale(0.92);
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-light);
+      border: 1px solid rgba(82, 183, 136, 0.3);
+      border-radius: 30px;
+      padding: 6px 14px;
+      font-size: 11px;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%,100%{opacity:1;transform:scale(1);}
+      50%{opacity:0.5;transform:scale(1.2);}
+    }
+    .cart-button {
+      background: var(--red);
+      border: none;
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+    .cart-button:active {
+      transform: scale(0.92);
+    }
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      background: var(--gold);
+      color: var(--bg);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 900;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ========== الهيرو ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 100px 20px 40px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #1a0a08, var(--bg));
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 15% 55%, rgba(230,57,70,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red-light);
+      border: 1px solid rgba(230,57,70,0.25);
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 11px;
+      color: #ff6b6b;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px,15vw,80px);
+      line-height: 0.9;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .hero-title .red { color: var(--red); }
+    .hero-title .outline {
+      -webkit-text-stroke: 2px rgba(248,244,240,0.15);
+      color: transparent;
+    }
+    .hero-sub {
+      font-size: 12px;
+      letter-spacing: 5px;
+      color: var(--gray);
+      display: block;
+      margin-top: 8px;
+    }
+    .hero-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 320px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      flex: 1;
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(230,57,70,0.3);
+    }
+    .btn-primary:active {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(230,57,70,0.5);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 15px 20px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-secondary:active {
+      background: rgba(255,255,255,0.05);
+    }
+    .hero-info-grid {
+      display: flex;
+      gap: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .info-label {
+      font-size: 10px;
+      color: var(--gray);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .info-value {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* ========== الشريط المتحرك ========== */
+    .marquee {
+      overflow: hidden;
+      background: var(--red);
+      padding: 12px 0;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 30px;
+      animation: marquee 18s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 4px;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .marquee-dot { color: var(--gold); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ========== الأقسام العامة ========== */
+    .section {
+      padding: 60px 20px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .section-line {
+      width: 24px;
+      height: 2px;
+      background: var(--red);
+    }
+    .section-eyebrow {
+      font-size: 10px;
+      color: var(--red);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .section-title span { color: var(--gold); }
+
+    /* ========== بطاقات الطعام (الجزء المهم) ========== */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      scroll-snap-type: y mandatory;
+    }
+    .item-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 14px;
+      align-items: center;
+      transition: var(--transition);
+      scroll-snap-align: start;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    .item-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--red);
+    }
+
+    /* تأثير دخول البطاقات */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== الصورة داخل البطاقة ===== */
+    .item-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 16px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .item-image:hover {
+      opacity: 0.9;
+    }
+    .item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background-color: var(--surface);
+      display: block;
+      transition: transform 0.3s ease-in-out;
+    }
+    .item-image:hover img {
+      transform: scale(1.05);
+    }
+    .item-image-fallback {
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      background: var(--surface);
+    }
+
+    .item-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .item-badges {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 30px;
+      text-transform: uppercase;
+    }
+    .badge-green {
+      background: var(--green-light);
+      color: var(--green);
+      border: 1px solid rgba(82,183,136,0.3);
+    }
+    .badge-gold {
+      background: var(--gold-light);
+      color: var(--gold);
+      border: 1px solid rgba(244,162,97,0.3);
+    }
+    .item-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .item-desc {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .item-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .item-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: var(--gold);
+    }
+    .item-price small {
+      font-family: 'Cairo', sans-serif;
+      font-size: 11px;
+      color: var(--gray);
+      font-weight: 400;
+    }
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-qty {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .btn-minus {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--white);
+    }
+    .btn-plus {
+      background: var(--red);
+      color: white;
+    }
+    .btn-qty:active {
+      transform: scale(0.85);
+    }
+    .item-qty {
+      font-size: 16px;
+      font-weight: 700;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    /* باقي الأنماط (المعلومات، الفوتر، النوافذ، إلخ) تبقى كما هي دون تغيير */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .info-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .icon-red { background: var(--red-light); }
+    .icon-gold { background: var(--gold-light); }
+    .icon-green { background: var(--green-light); }
+    .info-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .info-text {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 40px 20px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--red);
+      letter-spacing: 4px;
+      margin-bottom: 6px;
+    }
+    .footer-logo b { color: var(--gold); }
+    .footer-sub {
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+    .footer-link {
+      font-size: 12px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-link:hover { color: var(--gold); }
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(138,128,120,0.4);
+    }
+
+    /* ========== النوافذ المنبثقة والدراور ========== */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: var(--surface-2);
+      border: 1px solid rgba(230,57,70,0.3);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 999;
+      opacity: 0;
+      transition: all 0.3s;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: var(--shadow);
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast-undo {
+      margin-right: 12px;
+      color: var(--gold);
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 200;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-radius: 24px 24px 0 0;
+      border-top: 1px solid var(--border);
+      z-index: 201;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer.active {
+      transform: translateY(0);
+    }
+    .drawer-handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 4px;
+      margin: 12px auto;
+      flex-shrink: 0;
+    }
+    .drawer-header {
+      padding: 0 20px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .drawer-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--red);
+    }
+    .drawer-close {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .drawer-close:active {
+      transform: scale(0.9);
+    }
+    .drawer-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .cart-item-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-name {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .cart-item-price {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cart-qty-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-qty-btn:active {
+      transform: scale(0.85);
+    }
+    .cart-item-qty {
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 20px;
+      text-align: center;
+    }
+    .empty-cart {
+      text-align: center;
+      padding: 40px;
+      color: var(--gray);
+    }
+    .empty-cart-icon {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      opacity: 0.3;
+      margin-bottom: 12px;
+    }
+    .drawer-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .total-label {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    .total-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--gold);
+    }
+    .btn-checkout {
+      width: 100%;
+      background: linear-gradient(135deg, var(--red), #c1121f);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-checkout:active {
+      transform: scale(0.98);
+    }
+
+    /* ========== نموذج الطلب ========== */
+    .form-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 300;
+      display: flex;
+      align-items: flex-end;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .form-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .form-container {
+      background: var(--surface);
+      border-radius: 24px 24px 0 0;
+      border-top: 1px solid var(--border);
+      padding: 0 0 28px;
+      width: 100%;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .form-modal.active .form-container {
+      transform: translateY(0);
+    }
+    .form-handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 4px;
+      margin: 14px auto;
+    }
+    .form-header {
+      padding: 0 20px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-back {
+      background: transparent;
+      border: none;
+      color: var(--gray);
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .form-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .form-sub {
+      font-size: 12px;
+      color: var(--gray);
+    }
+    .form-body {
+      padding: 0 20px;
+    }
+    .order-summary {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .summary-title {
+      font-size: 11px;
+      color: var(--gray);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .summary-items {
+      margin-bottom: 12px;
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .summary-item-name {
+      color: var(--gray);
+    }
+    .summary-item-price {
+      font-weight: 700;
+    }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .summary-total-label {
+      font-weight: 700;
+    }
+    .summary-total-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--gold);
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .form-label span {
+      color: var(--red);
+    }
+    .form-input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-family: 'Cairo', sans-serif;
+      color: var(--white);
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-input:focus {
+      border-color: var(--red);
+    }
+    .form-input.error {
+      border-color: #ff6b6b;
+    }
+    .error-message {
+      font-size: 11px;
+      color: #ff6b6b;
+      margin-top: 5px;
+      display: none;
+    }
+    .error-message.show {
+      display: block;
+    }
+    .delivery-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .delivery-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .delivery-option.selected {
+      border-color: var(--red);
+      background: rgba(230,57,70,0.05);
+    }
+    .delivery-option:active {
+      transform: scale(0.98);
+    }
+    .option-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .option-info {
+      flex: 1;
+    }
+    .option-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .option-desc {
+      font-size: 11px;
+      color: var(--gray);
+    }
+    .option-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .selected .option-check {
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+    }
+    .address-wrap {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+    .address-wrap.show {
+      max-height: 120px;
+    }
+    .btn-confirm {
+      width: 100%;
+      background: #25d366;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+    .btn-confirm:active {
+      transform: scale(0.98);
+    }
+    .btn-back {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--gray);
+      padding: 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-back:active {
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ========== تكبير الصور ========== */
+    .image-zoom-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      padding: 20px;
+    }
+    .image-zoom-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .zoom-image {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 24px;
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .image-zoom-overlay.active .zoom-image {
+      transform: scale(1);
+    }
+    .zoom-close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .zoom-close:active {
+      transform: scale(0.9);
+    }
+
+    /* ========== الأزرار الثابتة ========== */
+    .float-button {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(230,57,70,0.5);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .float-button:active {
+      transform: translateX(-50%) scale(0.96);
+    }
+    .float-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 3px 10px;
+      border-radius: 40px;
+      font-size: 13px;
+    }
+    .scroll-top {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 80;
+    }
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:active {
+      transform: scale(0.9);
+    }
+
+    /* ========== تحسينات الجوال ========== */
+    @media (max-width: 480px) {
+      .hero-buttons { flex-direction: column; }
+      .hero-info-grid { flex-wrap: wrap; gap: 12px; }
+      .info-item { min-width: 45%; }
+      .items-grid { grid-template-columns: 1fr; }
+      .item-card { flex-direction: column; align-items: flex-start; }
+      .item-image { width: 100%; height: 180px; }
+      .footer-links { flex-direction: column; gap: 10px; }
+      .float-button { width: calc(100% - 40px); justify-content: center; }
+    }
+  </style>
 </head>
 <body>
   <div class="progress-bar" id="progressBar"></div>
@@ -13,33 +1198,46 @@
   <nav id="navbar">
     <div class="nav-logo">ATLAS <b>SNACK</b></div>
     <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="تبديل الثيم">🌑</button>
+      <div class="status-badge"><div class="live-dot"></div>مفتوح</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="تبديل الثيم">🌓</button>
       <button class="cart-button" id="cartButton" aria-label="عرض السلة">◈<div class="cart-badge" id="cartBadge">0</div></button>
     </div>
   </nav>
 
-  <div class="offer-banner" id="offerBanner">
-    <div class="offer-banner-content">
-      <h3 id="offerTitle">🔥 عرض اليوم</h3>
-      <p id="offerDesc">برغر + بطاطس + مشروب بـ 69 درهم فقط</p>
+  <section class="hero">
+    <div class="hero-tag"><div class="live-dot"></div>✦ جيليز — مراكش ✦</div>
+    <h1 class="hero-title"><span class="red">ATLAS</span><br><span class="outline">SNACK</span><br><span class="hero-sub">◆ GUELIZ MARRAKECH ◆</span></h1>
+    <p class="hero-desc">أشهى البرغر والتاكوس المغربية — طازج، سريع، ولا يُنسى.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">◈ اطلب الآن</button>
+      <button class="btn-secondary" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">✦ تواصل</button>
     </div>
-    <div class="offer-banner-tag" id="offerTag">وفر 20%</div>
-  </div>
+    <div class="hero-info-grid">
+      <div class="info-item"><div class="info-label">◆ الموقع</div><div class="info-value">جيليز، مراكش</div></div>
+      <div class="info-item"><div class="info-label">◆ الهاتف</div><div class="info-value">0524-382-917</div></div>
+      <div class="info-item"><div class="info-label">◆ الأوقات</div><div class="info-value">11ص — 11م</div></div>
+    </div>
+  </section>
 
-  <div class="filter-tabs" id="filterTabs">
-    <button class="filter-tab active" data-filter="all">الكل</button>
-    <button class="filter-tab" data-filter="burgers">البرغر</button>
-    <button class="filter-tab" data-filter="tacos">تاكوس</button>
-    <button class="filter-tab" data-filter="drinks">المشروبات</button>
-    <button class="filter-tab" data-filter="desserts">الحلويات</button>
-    <button class="filter-tab" data-filter="extras">إضافات</button>
-    <button class="filter-tab" data-filter="offers">العروض</button>
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-item">BURGERS <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">TACOS <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">FRITES <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">COCA <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">LIVRAISON <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">BURGERS <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">TACOS <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">FRITES <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">COCA <span class="marquee-dot">◆</span></div>
+      <div class="marquee-item">LIVRAISON <span class="marquee-dot">◆</span></div>
+    </div>
   </div>
 
   <section class="section" id="menu">
     <div class="section-header"><div class="section-line"></div><div class="section-eyebrow">✦ قائمة الطعام</div></div>
     <h2 class="section-title">اختر <span>طلبك</span></h2>
-    <div id="menuCategories"></div>
+    <div class="items-grid" id="menuItems"></div>
   </section>
 
   <section class="section" id="info">
@@ -47,8 +1245,8 @@
     <h2 class="section-title">معلومات <span>المحل</span></h2>
     <div class="info-grid">
       <div class="info-card"><div class="info-icon icon-red">📍</div><div><div class="info-title">◆ العنوان</div><div class="info-text">شارع محمد الخامس، جيليز — مراكش</div></div></div>
-      <div class="info-card"><div class="info-icon icon-gold">📞</div><div><div class="info-title">◆ الهاتف والواتساب</div><div class="info-text"><a href="tel:0524382917">0524-382-917</a> ◆ <a href="tel:0661234567">0661-234-567</a></div></div></div>
-      <div class="info-card"><div class="info-icon icon-green">✉️</div><div><div class="info-title">◆ البريد الإلكتروني</div><div class="info-text"><a href="mailto:contact@atlassnack.ma">contact@atlassnack.ma</a></div></div></div>
+      <div class="info-card"><div class="info-icon icon-gold">📞</div><div><div class="info-title">◆ الهاتف والواتساب</div><div class="info-text">0524-382-917 ◆ 0661-234-567</div></div></div>
+      <div class="info-card"><div class="info-icon icon-green">✉️</div><div><div class="info-title">◆ البريد الإلكتروني</div><div class="info-text">contact@atlassnack.ma</div></div></div>
       <div class="info-card"><div class="info-icon icon-red">🕐</div><div><div class="info-title">◆ أوقات العمل</div><div class="info-text">الاثنين — الأحد ◆ 11:00 ص — 11:00 م</div></div></div>
     </div>
   </section>
@@ -93,25 +1291,9 @@
             <div class="delivery-option" data-value="dinein"><div class="option-icon">🍽️</div><div class="option-info"><div class="option-name">◆ أكل في المحل</div><div class="option-desc">جو هادئ ◆ واي فاي مجاني</div></div><div class="option-check"></div></div>
           </div>
         </div>
-        <div class="form-group">
-          <div class="form-label">◉ الاسم <span>*</span></div>
-          <input class="form-input" id="customerName" type="text" placeholder="مثال: محمد أمين">
-          <div class="error-message" id="nameError">يرجى إدخال اسمك</div>
-        </div>
-        <div class="form-group">
-          <div class="form-label">◉ الهاتف <span>*</span></div>
-          <input class="form-input" id="customerPhone" type="tel" placeholder="مثال: 0612345678">
-          <div class="error-message" id="phoneError">يرجى إدخال رقم صحيح</div>
-        </div>
-        <div class="address-wrap" id="addressWrap">
-          <div class="form-group">
-            <div class="form-label">◉ العنوان <span>*</span>
-              <button class="location-btn" id="locationBtn" type="button">📍 حدد موقعي</button>
-            </div>
-            <input class="form-input" id="customerAddress" type="text" placeholder="الشارع، الحي...">
-            <div class="error-message" id="addressError">يرجى إدخال عنوانك</div>
-          </div>
-        </div>
+        <div class="form-group"><div class="form-label">◉ الاسم <span>*</span></div><input class="form-input" id="customerName" type="text" placeholder="مثال: محمد أمين"><div class="error-message" id="nameError">يرجى إدخال اسمك</div></div>
+        <div class="form-group"><div class="form-label">◉ الهاتف <span>*</span></div><input class="form-input" id="customerPhone" type="tel" placeholder="مثال: 0612345678"><div class="error-message" id="phoneError">يرجى إدخال رقم صحيح</div></div>
+        <div class="address-wrap" id="addressWrap"><div class="form-group"><div class="form-label">◉ العنوان <span>*</span></div><input class="form-input" id="customerAddress" type="text" placeholder="الشارع، الحي..."><div class="error-message" id="addressError">يرجى إدخال عنوانك</div></div></div>
         <div class="form-group"><div class="form-label">⊹ ملاحظات</div><input class="form-input" id="customerNotes" type="text" placeholder="حساسية، طلب خاص..."></div>
         <button class="btn-confirm" id="confirmOrderBtn">✦ تأكيد الطلب على واتساب</button>
         <button class="btn-back" id="backFromFormBtn">← العودة للسلة</button>
@@ -124,6 +1306,173 @@
     <img class="zoom-image" id="zoomedImage" src="" alt="">
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const MENU_ITEMS = [
+      { id:'burger', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'} },
+      { id:'tacos', name:'تاكوس أطلس', desc:'ورق تاكوس + لحم + فريت + صوص algerien + جبن', price:38, icon:'🌮', image:'tacos.JPG', badge:{type:'gold',text:'✦ جديد'} },
+      { id:'frites', name:'فريت كبير', desc:'بطاطس مقلية طازجة مع كاتشب أو مايونيز', price:18, icon:'🍟', image:'frites.jpg', badge:null },
+      { id:'coca', name:'كوكا / فانتا / سبرايت', desc:'علبة 33cl مبردة', price:12, icon:'🥤', image:'coca.jpg', badge:null }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('atlasCart')) || {};
+    let lastAddedItem = null;
+    let deliveryMethod = 'delivery';
+    const deliveryLabels = { delivery:'توصيل للمنزل', pickup:'استلام من المحل', dinein:'أكل في المحل' };
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light-theme');
+      // تحديث رمز الزر (اختياري)
+      themeToggle.textContent = document.documentElement.classList.contains('light-theme') ? '🌑' : '🌓';
+    });
+
+    function saveCart() { localStorage.setItem('atlasCart', JSON.stringify(cart)); }
+    function updateCartUI() {
+      const totalItems = Object.values(cart).reduce((s,i)=>s+i.qty,0);
+      const totalPrice = Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);
+      document.getElementById('cartBadge').style.display = totalItems>0?'flex':'none';
+      document.getElementById('cartBadge').textContent = totalItems;
+      document.getElementById('floatingBadge').textContent = totalItems;
+      document.getElementById('cartTotal').textContent = totalPrice;
+      const cartDiv = document.getElementById('cartItems');
+      if(totalItems===0){ cartDiv.innerHTML='<div class="empty-cart"><div class="empty-cart-icon">◈</div><div>سلتك فارغة</div></div>'; return; }
+      let html='';
+      for(const [id,item] of Object.entries(cart))
+        html+=`<div class="cart-item" data-id="${id}"><div class="cart-item-icon">${item.icon}</div><div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-price">${item.price*item.qty} درهم</div></div><div class="cart-item-controls"><button class="cart-qty-btn" onclick="updateCartItem('${id}',-1)">−</button><div class="cart-item-qty">${item.qty}</div><button class="cart-qty-btn" onclick="updateCartItem('${id}',1)">+</button></div></div>`;
+      cartDiv.innerHTML = html;
+    }
+    function showToast(msg,undo=false){
+      const t=document.getElementById('toast');
+      t.textContent=msg;
+      if(undo) t.innerHTML+=' <span class="toast-undo" onclick="undoLastAdd()">تراجع</span>';
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),3000);
+    }
+    function addToCart(id){
+      const item = MENU_ITEMS.find(i=>i.id===id);
+      if(!item) return;
+      if(cart[id]) cart[id].qty++;
+      else cart[id]={name:item.name, price:item.price, icon:item.icon, qty:1};
+      lastAddedItem=id;
+      saveCart(); updateCartUI(); showToast(`✦ ${item.name} تمت الإضافة`, true);
+    }
+    function updateCartItem(id,delta){
+      if(!cart[id]) return;
+      cart[id].qty+=delta;
+      if(cart[id].qty<=0) delete cart[id];
+      saveCart(); updateCartUI();
+    }
+    function undoLastAdd(){ if(lastAddedItem){ updateCartItem(lastAddedItem,-1); lastAddedItem=null; } }
+
+    function renderMenu(){
+      const container = document.getElementById('menuItems');
+      container.innerHTML = MENU_ITEMS.map(item=>{
+        const qty = cart[item.id]?.qty||0;
+        const badgeClass = item.badge?.type==='green'?'badge-green':'badge-gold';
+        const badgeHtml = item.badge ? `<div class="badge ${badgeClass}">${item.badge.text}</div>` : '';
+        return `
+          <div class="item-card">
+            <div class="item-image" onclick="zoomImage('${item.image}')">
+              <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="handleImageError(this,'${item.icon}')">
+              <div class="item-image-fallback" id="fallback-${item.id}">${item.icon}</div>
+            </div>
+            <div class="item-content">
+              <div class="item-badges">${badgeHtml}</div>
+              <div class="item-name">${item.name}</div>
+              <div class="item-desc">${item.desc}</div>
+              <div class="item-footer">
+                <div class="item-price">${item.price} <small>درهم</small></div>
+                <div class="item-controls">
+                  <button class="btn-qty btn-minus" onclick="updateCartItem('${item.id}',-1)">−</button>
+                  <div class="item-qty" id="qty-${item.id}">${qty}</div>
+                  <button class="btn-qty btn-plus" onclick="addToCart('${item.id}')">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    function updateQtys(){ for(const id in cart){ const el=document.getElementById(`qty-${id}`); if(el) el.textContent=cart[id].qty; } }
+
+    window.handleImageError = function(img,icon){
+      img.style.display='none';
+      const fb = img.parentElement.querySelector('.item-image-fallback');
+      if(fb) fb.style.display='flex';
+    };
+    function zoomImage(src){ document.getElementById('zoomedImage').src=src; document.getElementById('imageZoomOverlay').classList.add('active'); }
+
+    function openCartDrawer(){ document.getElementById('overlay').classList.add('active'); document.getElementById('cartDrawer').classList.add('active'); }
+    function closeCartDrawer(){ document.getElementById('overlay').classList.remove('active'); document.getElementById('cartDrawer').classList.remove('active'); }
+    function openOrderForm(){
+      if(Object.keys(cart).length===0) return;
+      const items=Object.values(cart); const total=items.reduce((s,i)=>s+i.price*i.qty,0);
+      const itemsHtml=items.map(i=>`<div class="summary-item"><span class="summary-item-name">${i.name} x${i.qty}</span><span class="summary-item-price">${i.price*i.qty} درهم</span></div>`).join('');
+      document.getElementById('orderSummary').innerHTML=`<div class="summary-title">✦ ملخص طلبك</div><div class="summary-items">${itemsHtml}</div><div class="summary-total"><div class="summary-total-label">◆ المجموع</div><div class="summary-total-value">${total} درهم</div></div>`;
+      closeCartDrawer(); document.getElementById('orderFormModal').classList.add('active');
+    }
+    function closeOrderForm(){ document.getElementById('orderFormModal').classList.remove('active'); }
+
+    function initDeliveryOptions(){
+      const opts=document.querySelectorAll('.delivery-option');
+      opts.forEach(o=>o.addEventListener('click',()=>{
+        opts.forEach(oo=>oo.classList.remove('selected'));
+        o.classList.add('selected');
+        deliveryMethod=o.dataset.value;
+        document.getElementById('addressWrap').classList.toggle('show',deliveryMethod==='delivery');
+      }));
+    }
+
+    function validateForm(){
+      let ok=true;
+      const n=document.getElementById('customerName').value.trim();
+      const p=document.getElementById('customerPhone').value.trim();
+      const a=document.getElementById('customerAddress').value.trim();
+      if(!n){ document.getElementById('customerName').classList.add('error'); document.getElementById('nameError').classList.add('show'); ok=false; }
+      else{ document.getElementById('customerName').classList.remove('error'); document.getElementById('nameError').classList.remove('show'); }
+      const phoneRegex=/^[0-9]{9,}$/;
+      if(!p||!phoneRegex.test(p)){ document.getElementById('customerPhone').classList.add('error'); document.getElementById('phoneError').classList.add('show'); ok=false; }
+      else{ document.getElementById('customerPhone').classList.remove('error'); document.getElementById('phoneError').classList.remove('show'); }
+      if(deliveryMethod==='delivery' && !a){ document.getElementById('customerAddress').classList.add('error'); document.getElementById('addressError').classList.add('show'); ok=false; }
+      else{ document.getElementById('customerAddress').classList.remove('error'); document.getElementById('addressError').classList.remove('show'); }
+      return ok;
+    }
+    function confirmOrder(){
+      if(!validateForm()) return;
+      const n=document.getElementById('customerName').value.trim(), p=document.getElementById('customerPhone').value.trim(), a=document.getElementById('customerAddress').value.trim(), nt=document.getElementById('customerNotes').value.trim();
+      const items=Object.values(cart), total=items.reduce((s,i)=>s+i.price*i.qty,0);
+      let msg='السلام عليكم Atlas Snack\n\nطلب جديد:\n';
+      items.forEach(i=>msg+=`- ${i.name} x${i.qty} = ${i.price*i.qty} درهم\n`);
+      msg+=`\nالمجموع: ${total} درهم\n\nالاسم: ${n}\nالهاتف: ${p}\nالاستلام: ${deliveryLabels[deliveryMethod]}\n`;
+      if(deliveryMethod==='delivery') msg+=`العنوان: ${a}\n`;
+      if(nt) msg+=`ملاحظات: ${nt}\n`;
+      window.open(`https://wa.me/212661234567?text=${encodeURIComponent(msg)}`);
+    }
+
+    function updateProgressBar(){
+      const s=document.documentElement.scrollTop, h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+      document.getElementById('progressBar').style.width=(s/h*100)+'%';
+    }
+    function toggleScrollTop(){ document.getElementById('scrollTop').classList.toggle('show',window.scrollY>300); }
+
+    document.addEventListener('DOMContentLoaded',()=>{
+      renderMenu(); updateCartUI();
+      document.getElementById('cartButton').addEventListener('click',openCartDrawer);
+      document.getElementById('floatingCart').addEventListener('click',openCartDrawer);
+      document.getElementById('closeDrawerBtn').addEventListener('click',closeCartDrawer);
+      document.getElementById('overlay').addEventListener('click',closeCartDrawer);
+      document.getElementById('checkoutBtn').addEventListener('click',openOrderForm);
+      document.getElementById('backToCartBtn').addEventListener('click',()=>{ closeOrderForm(); openCartDrawer(); });
+      document.getElementById('backFromFormBtn').addEventListener('click',()=>{ closeOrderForm(); openCartDrawer(); });
+      document.getElementById('closeZoomBtn').addEventListener('click',()=>document.getElementById('imageZoomOverlay').classList.remove('active'));
+      document.getElementById('imageZoomOverlay').addEventListener('click',e=>{ if(e.target===document.getElementById('imageZoomOverlay')) document.getElementById('imageZoomOverlay').classList.remove('active'); });
+      document.getElementById('scrollTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+      document.getElementById('confirmOrderBtn').addEventListener('click',confirmOrder);
+      initDeliveryOptions();
+      setInterval(updateQtys,100);
+      window.addEventListener('scroll',()=>{ updateProgressBar(); toggleScrollTop(); });
+    });
+  </script>
 </body>
 </html>
