@@ -24,7 +24,7 @@
       --transition: all 0.2s ease;
     }
     :root.light-theme {
-      --bg: linear-gradient(180deg, #5a4a3a 0%, #f8e4d0 100%);
+      --bg: linear-gradient(180deg, #b8a99a 0%, #f2e0d0 100%);
       --surface: #e8d8c0;
       --surface-2: #f0e0c8;
       --border: #c0a890;
@@ -38,6 +38,7 @@
       --gray: #6b4f3a;
       --gray-light: #a58e7a;
       --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --nav-bg: rgba(248, 244, 240, 0.96);
     }
     * {
       margin: 0;
@@ -69,7 +70,8 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
-      background: rgba(12, 10, 8, 0.96); backdrop-filter: blur(10px);
+      background: var(--nav-bg, rgba(12, 10, 8, 0.96)); /* fallback للوضع الليلي */
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(230, 57, 70, 0.15); transition: all 0.3s;
     }
     .nav-logo {
@@ -582,7 +584,6 @@
         updateCartUI();
         showToast(`✦ ${item.name} تمت الإضافة`, true);
 
-        // تأثير النبض على زر السلة
         const cartBtn = document.getElementById('cartButton');
         cartBtn.classList.add('animate');
         setTimeout(() => {
