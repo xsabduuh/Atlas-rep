@@ -24,6 +24,23 @@
       --transition: all 0.2s ease;
     }
 
+    /* الوضع الفاتح */
+    :root.light-theme {
+      --bg: #f8f4f0;
+      --surface: #ffffff;
+      --surface-2: #f0f0f0;
+      --border: #ddd;
+      --red: #e63946;
+      --red-light: rgba(230, 57, 70, 0.1);
+      --gold: #c97c3c;
+      --gold-light: rgba(201, 124, 60, 0.1);
+      --green: #2a9d8f;
+      --green-light: rgba(42, 157, 143, 0.1);
+      --white: #0c0a08;
+      --gray: #5a5a5a;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -42,6 +59,7 @@
       color: var(--white);
       overflow-x: hidden;
       min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     /* ========== شريط التمرير ========== */
@@ -82,7 +100,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(12, 10, 8, 0.96);
+      background: rgba(var(--bg-rgb, 12,10,8), 0.96);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(230, 57, 70, 0.15);
       transition: all 0.3s;
@@ -103,6 +121,23 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    }
+    .theme-toggle {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+    .theme-toggle:active {
+      transform: scale(0.92);
     }
     .status-badge {
       display: flex;
@@ -170,7 +205,7 @@
       padding: 100px 20px 40px;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(180deg, #1a0a08, #0c0a08);
+      background: linear-gradient(180deg, #1a0a08, var(--bg));
     }
     .hero::before {
       content: '';
@@ -340,8 +375,9 @@
     /* ========== بطاقات الطعام (الجزء المهم) ========== */
     .items-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      scroll-snap-type: y mandatory;
     }
     .item-card {
       background: var(--surface-2);
@@ -353,21 +389,35 @@
       gap: 14px;
       align-items: center;
       transition: var(--transition);
+      scroll-snap-align: start;
+      animation: fadeInUp 0.5s ease forwards;
     }
     .item-card:hover {
       transform: translateY(-4px);
       border-color: var(--red);
     }
 
+    /* تأثير دخول البطاقات */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* ===== الصورة داخل البطاقة ===== */
     .item-image {
-      width: 140px;        /* زيادة الحجم قليلاً لرؤية أفضل */
+      width: 140px;
       height: 140px;
       border-radius: 16px;
       overflow: hidden;
       flex-shrink: 0;
       border: 1px solid var(--border);
-      background: var(--surface);  /* خلفية داكنة تظهر في الفراغات */
+      background: var(--surface);
       cursor: pointer;
       transition: var(--transition);
     }
@@ -377,9 +427,13 @@
     .item-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;    /* تغيير من contain إلى cover لملء الإطار بدون فراغات */
-      background-color: var(--surface); /* نفس لون الخلفية */
+      object-fit: cover;
+      background-color: var(--surface);
       display: block;
+      transition: transform 0.3s ease-in-out;
+    }
+    .item-image:hover img {
+      transform: scale(1.05);
     }
     .item-image-fallback {
       width: 100%;
@@ -387,7 +441,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 42px;        /* أيقونة أكبر */
+      font-size: 42px;
       background: var(--surface);
     }
 
@@ -1132,7 +1186,7 @@
       .info-item { min-width: 45%; }
       .items-grid { grid-template-columns: 1fr; }
       .item-card { flex-direction: column; align-items: flex-start; }
-      .item-image { width: 100%; height: 180px; }  /* على الجوال تمتد لعرض البطاقة */
+      .item-image { width: 100%; height: 180px; }
       .footer-links { flex-direction: column; gap: 10px; }
       .float-button { width: calc(100% - 40px); justify-content: center; }
     }
@@ -1145,7 +1199,8 @@
     <div class="nav-logo">ATLAS <b>SNACK</b></div>
     <div class="nav-actions">
       <div class="status-badge"><div class="live-dot"></div>مفتوح</div>
-      <button class="cart-button" id="cartButton">◈<div class="cart-badge" id="cartBadge">0</div></button>
+      <button class="theme-toggle" id="themeToggle" aria-label="تبديل الثيم">🌓</button>
+      <button class="cart-button" id="cartButton" aria-label="عرض السلة">◈<div class="cart-badge" id="cartBadge">0</div></button>
     </div>
   </nav>
 
@@ -1203,8 +1258,8 @@
     <div class="footer-copy">◆ 2025 Atlas Snack ◆</div>
   </footer>
 
-  <button class="float-button" id="floatingCart">◈ سلتي <span class="float-badge" id="floatingBadge">0</span></button>
-  <div class="scroll-top" id="scrollTop">↑</div>
+  <button class="float-button" id="floatingCart" aria-label="عرض السلة">◈ سلتي <span class="float-badge" id="floatingBadge">0</span></button>
+  <div class="scroll-top" id="scrollTop" aria-label="العودة للأعلى">↑</div>
   <div class="toast" id="toast"></div>
   <div class="overlay" id="overlay"></div>
 
@@ -1254,7 +1309,7 @@
   <script>
     const MENU_ITEMS = [
       { id:'burger', name:'برغر كبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'} },
-      { id:'tacos', name:'تاكوس ', desc:'ورق تاكوس + لحم + فريت + صوص algerien + جبن', price:38, icon:'🌮', image:'tacos.JPG', badge:{type:'gold',text:'✦ جديد'} },
+      { id:'tacos', name:'تاكوس أطلس', desc:'ورق تاكوس + لحم + فريت + صوص algerien + جبن', price:38, icon:'🌮', image:'tacos.JPG', badge:{type:'gold',text:'✦ جديد'} },
       { id:'frites', name:'فريت كبير', desc:'بطاطس مقلية طازجة مع كاتشب أو مايونيز', price:18, icon:'🍟', image:'frites.jpg', badge:null },
       { id:'coca', name:'كوكا / فانتا / سبرايت', desc:'علبة 33cl مبردة', price:12, icon:'🥤', image:'coca.jpg', badge:null }
     ];
@@ -1263,6 +1318,14 @@
     let lastAddedItem = null;
     let deliveryMethod = 'delivery';
     const deliveryLabels = { delivery:'توصيل للمنزل', pickup:'استلام من المحل', dinein:'أكل في المحل' };
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light-theme');
+      // تحديث رمز الزر (اختياري)
+      themeToggle.textContent = document.documentElement.classList.contains('light-theme') ? '🌑' : '🌓';
+    });
 
     function saveCart() { localStorage.setItem('atlasCart', JSON.stringify(cart)); }
     function updateCartUI() {
