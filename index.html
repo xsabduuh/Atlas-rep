@@ -888,6 +888,7 @@
       font-size: 28px;
       border: 1px solid var(--border);
       flex-shrink: 0;
+      overflow: hidden; /* مهم للصورة */
     }
     .cart-item-info {
       flex: 1;
@@ -1729,7 +1730,24 @@
       let html='';
       for(const [id,item] of Object.entries(cart)) {
         const menuItem = MENU_ITEMS.find(m => m.id === id);
-        html+=`<div class="cart-item" data-id="${id}"><div class="cart-item-icon">${menuItem?.icon || '🍽️'}</div><div class="cart-item-info"><div class="cart-item-name">${item.name} ${item.customizations ? '(مخصص)' : ''}</div><div class="cart-item-price">${item.price*item.qty} درهم</div></div><div class="cart-item-controls"><button class="cart-qty-btn" onclick="updateCartItem('${id}',-1)">−</button><div class="cart-item-qty">${item.qty}</div><button class="cart-qty-btn" onclick="updateCartItem('${id}',1)">+</button></div></div>`;
+        const imageSrc = menuItem?.image || '';
+        const icon = menuItem?.icon || '🍽️';
+        html+=`
+          <div class="cart-item" data-id="${id}">
+            <div class="cart-item-icon">
+              <img src="${imageSrc}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;" onerror="this.style.display='none'; this.parentElement.innerHTML='${icon}';">
+            </div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name} ${item.customizations ? '(مخصص)' : ''}</div>
+              <div class="cart-item-price">${item.price*item.qty} درهم</div>
+            </div>
+            <div class="cart-item-controls">
+              <button class="cart-qty-btn" onclick="updateCartItem('${id}',-1)">−</button>
+              <div class="cart-item-qty">${item.qty}</div>
+              <button class="cart-qty-btn" onclick="updateCartItem('${id}',1)">+</button>
+            </div>
+          </div>
+        `;
       }
       cartDiv.innerHTML = html;
       document.getElementById('reorderBtn').style.display = orderHistory.length ? 'block' : 'none';
