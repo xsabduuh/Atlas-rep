@@ -1,5 +1,4 @@
 ```javascript
-// ========== قائمة الطعام (بدون customizations أو recommended) ==========
 const MENU_ITEMS = [
   { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة' },
   { id:'burger2', name:'برغر دجاج مقرمش', desc:'فيليه دجاج مقرمش + جبن + خس + مايونيز', price:45, icon:'🍔', image:'burger ch.JPG', badge:{type:'gold',text:'✦ جديد'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة' },
@@ -17,22 +16,25 @@ const MENU_ITEMS = [
   { id:'offer2', name:'عرض تاكوس', desc:'تاكوس أطلس + بطاطس + فانتا', price:49, icon:'🌮', image:'offer2.jpg', badge:{type:'red',text:'🔥 عرض'}, category:'offers', categoryAr:'العروض', time:'15-20 دقيقة' }
 ];
 
-// ========== المتغيرات العامة ==========
 let cart = JSON.parse(localStorage.getItem('atlasCart')) || {};
 let lastAddedItem = null;
 let deliveryMethod = 'delivery';
 const deliveryLabels = { delivery:'توصيل للمنزل', pickup:'استلام من المحل', dinein:'أكل في المحل' };
 let currentFilter = 'all';
 
-// ========== تفعيل الوضع المحفوظ (Light/Dark) ==========
-(function loadTheme() {
+// الوضع الليلي هو الأساس: نتحقق من عدم وجود تفضيل مخالف فقط
+(function initTheme() {
   const savedTheme = localStorage.getItem('atlasTheme');
   if (savedTheme === 'light') {
     document.documentElement.classList.add('light-theme');
+  } else {
+    // إذا لم يكن محفوظاً أو كان dark، نضمن إزالة الكلاس (الليلي هو الافتراضي)
+    document.documentElement.classList.remove('light-theme');
+    // تأكيد حفظ الحالة كـ dark في المرة الأولى
+    if (!savedTheme) localStorage.setItem('atlasTheme', 'dark');
   }
 })();
 
-// ========== دوال مساعدة ==========
 function saveCart() { localStorage.setItem('atlasCart', JSON.stringify(cart)); }
 
 function updateCartUI() {
@@ -55,7 +57,7 @@ function updateCartUI() {
     html+=`
       <div class="cart-item" data-id="${id}">
         <div class="cart-item-icon">
-          <img src="${imageSrc}" alt="${item.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='${icon}';">
+          <img src="${imageSrc}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='${icon}';">
         </div>
         <div class="cart-item-info">
           <div class="cart-item-name">${item.name}</div>
@@ -242,7 +244,6 @@ function toggleScrollTop() {
   document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 300); 
 }
 
-// ========== دالة عرض المنيو ==========
 function renderMenu(filter = currentFilter) {
   const container = document.getElementById('menuCategories');
   container.innerHTML = '';
@@ -273,7 +274,7 @@ function renderMenu(filter = currentFilter) {
     const gridDiv = document.createElement('div');
     gridDiv.className = 'items-grid';
 
-    cat.items.forEach((item) => {
+    cat.items.forEach((item, index) => {
       const qty = cart[item.id]?.qty || 0;
       const badgeClass = item.badge?.type === 'green' ? 'badge-green' : (item.badge?.type === 'red' ? 'badge-red' : 'badge-gold');
       const badgeHtml = item.badge ? `<div class="badge ${badgeClass}">${item.badge.text}</div>` : '';
@@ -289,8 +290,10 @@ function renderMenu(filter = currentFilter) {
           <button class="btn-qty btn-plus" data-id="${item.id}" data-delta="1">+</button>
         </div>`;
 
+      // تحسين تحميل الصور
+      const fetchPriority = item.id === 'burger1' ? 'high' : 'auto';
       const imageHtml = `<div class="item-image" onclick="zoomImage('${item.image}')">
-        <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="handleImageError(this,'${item.icon}')">
+        <img src="${item.image}" alt="${item.name}" loading="lazy" decoding="async" fetchpriority="${fetchPriority}" onerror="handleImageError(this,'${item.icon}')">
         <div class="item-image-fallback" id="fallback-${item.id}">${item.icon}</div>
       </div>`;
 
@@ -316,7 +319,6 @@ function renderMenu(filter = currentFilter) {
   });
 }
 
-// ========== التهيئة ==========
 document.addEventListener('DOMContentLoaded', function() {
   renderMenu();
   updateCartUI();
@@ -349,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // زر الوضع الليلي/النهاري
   const themeToggle = document.getElementById('themeToggle');
   const savedTheme = localStorage.getItem('atlasTheme');
-  themeToggle.textContent = savedTheme === 'light' ? '🌑' : '🌓';
+  themeToggle.textContent = savedTheme === 'light' ? '🌑' : '🌓'; // أيقونة معكوسة منطقياً
 
   themeToggle.addEventListener('click', () => {
     document.documentElement.classList.toggle('light-theme');
@@ -380,22 +382,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const itemName = e.target.closest('.item-name');
     if (itemName) {
       const id = itemName.dataset.id;
-      if (id) addToCart(id); // النقر على الاسم يضيف مباشرة
+      if (id) addToCart(id);
     }
   });
 
-  // تحديث الكميات
+  // تحديث الكميات بشكل أقل تواتراً لتقليل الـ lag
+  let lastUpdate = 0;
   setInterval(() => {
-    for (const id in cart) {
-      const el = document.getElementById(`qty-${id}`);
-      if (el) el.textContent = cart[id].qty;
+    const now = Date.now();
+    if (now - lastUpdate > 200) { // تحديث كل 200ms فقط إذا كان هناك تغيير
+      for (const id in cart) {
+        const el = document.getElementById(`qty-${id}`);
+        if (el && el.textContent != cart[id].qty) {
+          el.textContent = cart[id].qty;
+        }
+      }
+      lastUpdate = now;
     }
-  }, 100);
+  }, 200);
 
   window.addEventListener('scroll', () => { updateProgressBar(); toggleScrollTop(); });
 });
 
-// تصدير الدوال
 window.addToCart = addToCart;
 window.updateCartItem = updateCartItem;
 window.undoLastAdd = undoLastAdd;
