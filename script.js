@@ -577,23 +577,26 @@ document.addEventListener('DOMContentLoaded', function() {
   menuContainer.addEventListener('click', function(e) {
     const target = e.target;
 
+    // زر الإضافة السريعة: يضيف المنتج مباشرة للسلة
     if (target.classList.contains('quick-add')) {
+      const id = target.dataset.id;
+      if (id) addToCart(id);
+    }
+
+    // زر + : يفتح مودال التخصيص (لأنه قد يرغب في إضافة إضافات)
+    if (target.classList.contains('btn-plus')) {
       const id = target.dataset.id;
       if (id) openCustomization(id);
     }
 
-    if (target.classList.contains('btn-plus') || target.classList.contains('btn-minus')) {
+    // زر - : يقلل الكمية مباشرة
+    if (target.classList.contains('btn-minus')) {
       const id = target.dataset.id;
       const delta = parseInt(target.dataset.delta);
-      if (id && !isNaN(delta)) {
-        if (delta > 0) {
-          openCustomization(id);
-        } else {
-          updateCartItem(id, delta);
-        }
-      }
+      if (id && !isNaN(delta)) updateCartItem(id, delta);
     }
 
+    // اسم المنتج: يفتح مودال التخصيص
     if (target.classList.contains('item-name')) {
       const id = target.dataset.id;
       if (id) openCustomization(id);
