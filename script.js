@@ -20,7 +20,7 @@ const MENU_ITEMS = [
     ]
   },
   { 
-    id:'burger2',
+    id:'burger2', 
     name:'برغر دجاج مقرمش', 
     desc:'فيليه دجاج مقرمش + جبن + خس + مايونيز', 
     price:45, 
