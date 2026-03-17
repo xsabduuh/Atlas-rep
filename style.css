@@ -1,4 +1,4 @@
-```css
+```css  
 :root {
   --bg: #0c0a08;
   --surface: #141210;
@@ -462,7 +462,6 @@ a:hover {
   transform: scale(0.95);
 }
 
-/* باقي الأنماط (مبسطة) */
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
