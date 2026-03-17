@@ -1,4 +1,3 @@
-```javascript
 const MENU_ITEMS = [
   { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة' },
   { id:'burger2', name:'برغر دجاج مقرمش', desc:'فيليه دجاج مقرمش + جبن + خس + مايونيز', price:45, icon:'🍔', image:'burger ch.JPG', badge:{type:'gold',text:'✦ جديد'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة' },
@@ -408,4 +407,3 @@ window.addToCart = addToCart;
 window.updateCartItem = updateCartItem;
 window.undoLastAdd = undoLastAdd;
 window.zoomImage = zoomImage;
-```
