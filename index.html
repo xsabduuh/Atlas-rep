@@ -372,10 +372,22 @@
     }
     .section-title span { color: var(--gold); }
 
-    /* ========== بطاقات الطعام (الجزء المهم) ========== */
+    /* عنوان كل قسم داخل المنيو */
+    .category-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--red);
+      margin: 40px 0 20px;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+      padding-bottom: 8px;
+    }
+
+    /* ========== بطاقات الطعام ========== */
     .items-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
       scroll-snap-type: y mandatory;
     }
@@ -1207,6 +1219,7 @@
   <section class="hero">
     <div class="hero-tag"><div class="live-dot"></div>✦ جيليز — مراكش ✦</div>
     <h1 class="hero-title"><span class="red">ATLAS</span><br><span class="outline">SNACK</span><br><span class="hero-sub">◆ GUELIZ MARRAKECH ◆</span></h1>
+    <p class="hero-desc">أشهى البرغر والتاكوس المغربية — طازج، سريع، ولا يُنسى.</p>
     <div class="hero-buttons">
       <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">◈ اطلب الآن</button>
       <button class="btn-secondary" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">✦ تواصل</button>
@@ -1236,7 +1249,7 @@
   <section class="section" id="menu">
     <div class="section-header"><div class="section-line"></div><div class="section-eyebrow">✦ قائمة الطعام</div></div>
     <h2 class="section-title">اختر <span>طلبك</span></h2>
-    <div class="items-grid" id="menuItems"></div>
+    <div id="menuCategories"></div> <!-- هنا سيتم عرض الأقسام ديناميكياً -->
   </section>
 
   <section class="section" id="info">
@@ -1306,11 +1319,29 @@
   </div>
 
   <script>
+    // ========== قائمة الطعام الموسعة مع الأقسام ==========
     const MENU_ITEMS = [
-      { id:'burger', name:'برغر كبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'} },
-      { id:'tacos', name:'تاكوس أطلس', desc:'ورق تاكوس + لحم + فريت + صوص algerien + جبن', price:38, icon:'🌮', image:'tacos.JPG', badge:{type:'gold',text:'✦ جديد'} },
-      { id:'frites', name:'فريت كبير', desc:'بطاطس مقلية طازجة مع كاتشب أو مايونيز', price:18, icon:'🍟', image:'frites.jpg', badge:null },
-      { id:'coca', name:'كوكا / فانتا / سبرايت', desc:'علبة 33cl مبردة', price:12, icon:'🥤', image:'coca.jpg', badge:null }
+      // قسم البرغر
+      { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger1.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر' },
+      { id:'burger2', name:'برغر دجاج مقرمش', desc:'فيليه دجاج مقرمش + جبن + خس + مايونيز', price:45, icon:'🍔', image:'burger2.jpg', badge:{type:'gold',text:'✦ جديد'}, category:'burgers', categoryAr:'البرغر' },
+      { id:'burger3', name:'برغر نباتي', desc:'فطيرة نباتية + طماطم + خس + صوص طحينة', price:40, icon:'🥬', image:'burger3.jpg', badge:null, category:'burgers', categoryAr:'البرغر' },
+
+      // قسم التاكوس
+      { id:'tacos1', name:'تاكوس أطلس', desc:'ورق تاكوس + لحم مفروم + فريت + صوص الڭار', price:38, icon:'🌮', image:'tacos1.jpg', badge:{type:'gold',text:'✦ الأكثر مبيعاً'}, category:'tacos', categoryAr:'التاكوس' },
+      { id:'tacos2', name:'تاكوس دجاج', desc:'ورق تاكوس + دجاج + فريت + صوص أبيض', price:42, icon:'🌮', image:'tacos2.jpg', badge:null, category:'tacos', categoryAr:'التاكوس' },
+
+      // قسم المشروبات
+      { id:'drink1', name:'كوكاكولا', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'coca.jpg', badge:null, category:'drinks', categoryAr:'المشروبات' },
+      { id:'drink2', name:'فانتا برتقال', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'fanta.jpg', badge:null, category:'drinks', categoryAr:'المشروبات' },
+      { id:'drink3', name:'ميرندا', desc:'علبة 33cl مثلجة', price:12, icon:'🥤', image:'mirinda.jpg', badge:null, category:'drinks', categoryAr:'المشروبات' },
+
+      // قسم الحلويات
+      { id:'dessert1', name:'بسبوسة بالقشطة', desc:'قطعة بسبوسة محشية قشطة', price:20, icon:'🍰', image:'dessert1.jpg', badge:{type:'green',text:'◈ حلو اليوم'}, category:'desserts', categoryAr:'الحلويات' },
+      { id:'dessert2', name:'كنافة ناعمة', desc:'كنافة بالجبن أو القشطة', price:25, icon:'🥮', image:'dessert2.jpg', badge:null, category:'desserts', categoryAr:'الحلويات' },
+
+      // قسم الإضافات
+      { id:'extra1', name:'بطاطس مقلية', desc:'حجم عائلي مع كاتشب', price:18, icon:'🍟', image:'frites.jpg', badge:null, category:'extras', categoryAr:'إضافات' },
+      { id:'extra2', name:'صوص جبن', desc:'صوص جبن كريمي إضافي', price:8, icon:'🧀', image:'cheese.jpg', badge:null, category:'extras', categoryAr:'إضافات' }
     ];
 
     let cart = JSON.parse(localStorage.getItem('atlasCart')) || {};
@@ -1322,7 +1353,6 @@
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
       document.documentElement.classList.toggle('light-theme');
-      // تحديث رمز الزر (اختياري)
       themeToggle.textContent = document.documentElement.classList.contains('light-theme') ? '🌑' : '🌓';
     });
 
@@ -1337,8 +1367,10 @@
       const cartDiv = document.getElementById('cartItems');
       if(totalItems===0){ cartDiv.innerHTML='<div class="empty-cart"><div class="empty-cart-icon">◈</div><div>سلتك فارغة</div></div>'; return; }
       let html='';
-      for(const [id,item] of Object.entries(cart))
-        html+=`<div class="cart-item" data-id="${id}"><div class="cart-item-icon">${item.icon}</div><div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-price">${item.price*item.qty} درهم</div></div><div class="cart-item-controls"><button class="cart-qty-btn" onclick="updateCartItem('${id}',-1)">−</button><div class="cart-item-qty">${item.qty}</div><button class="cart-qty-btn" onclick="updateCartItem('${id}',1)">+</button></div></div>`;
+      for(const [id,item] of Object.entries(cart)) {
+        const menuItem = MENU_ITEMS.find(m => m.id === id);
+        html+=`<div class="cart-item" data-id="${id}"><div class="cart-item-icon">${menuItem?.icon || '🍽️'}</div><div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-price">${item.price*item.qty} درهم</div></div><div class="cart-item-controls"><button class="cart-qty-btn" onclick="updateCartItem('${id}',-1)">−</button><div class="cart-item-qty">${item.qty}</div><button class="cart-qty-btn" onclick="updateCartItem('${id}',1)">+</button></div></div>`;
+      }
       cartDiv.innerHTML = html;
     }
     function showToast(msg,undo=false){
@@ -1364,14 +1396,48 @@
     }
     function undoLastAdd(){ if(lastAddedItem){ updateCartItem(lastAddedItem,-1); lastAddedItem=null; } }
 
-    function renderMenu(){
-      const container = document.getElementById('menuItems');
-      container.innerHTML = MENU_ITEMS.map(item=>{
-        const qty = cart[item.id]?.qty||0;
-        const badgeClass = item.badge?.type==='green'?'badge-green':'badge-gold';
-        const badgeHtml = item.badge ? `<div class="badge ${badgeClass}">${item.badge.text}</div>` : '';
-        return `
-          <div class="item-card">
+    // دالة عرض المنيو مقسمة حسب الأقسام
+    function renderMenu() {
+      const container = document.getElementById('menuCategories');
+      container.innerHTML = ''; // تفريغ المحتوى
+
+      // تجميع العناصر حسب القسم
+      const categories = {};
+      MENU_ITEMS.forEach(item => {
+        if (!categories[item.category]) {
+          categories[item.category] = {
+            nameAr: item.categoryAr,
+            items: []
+          };
+        }
+        categories[item.category].items.push(item);
+      });
+
+      // ترتيب الأقسام (اختياري)
+      const categoryOrder = ['burgers', 'tacos', 'drinks', 'desserts', 'extras'];
+
+      categoryOrder.forEach(catKey => {
+        const cat = categories[catKey];
+        if (!cat) return;
+
+        // عنوان القسم
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'category-title';
+        titleDiv.textContent = cat.nameAr;
+        container.appendChild(titleDiv);
+
+        // شبكة البطاقات
+        const gridDiv = document.createElement('div');
+        gridDiv.className = 'items-grid';
+
+        cat.items.forEach(item => {
+          const qty = cart[item.id]?.qty || 0;
+          const badgeClass = item.badge?.type === 'green' ? 'badge-green' : 'badge-gold';
+          const badgeHtml = item.badge ? `<div class="badge ${badgeClass}">${item.badge.text}</div>` : '';
+
+          const card = document.createElement('div');
+          card.className = 'item-card';
+          card.innerHTML = `
             <div class="item-image" onclick="zoomImage('${item.image}')">
               <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="handleImageError(this,'${item.icon}')">
               <div class="item-image-fallback" id="fallback-${item.id}">${item.icon}</div>
@@ -1389,11 +1455,20 @@
                 </div>
               </div>
             </div>
-          </div>
-        `;
-      }).join('');
+          `;
+          gridDiv.appendChild(card);
+        });
+
+        container.appendChild(gridDiv);
+      });
     }
-    function updateQtys(){ for(const id in cart){ const el=document.getElementById(`qty-${id}`); if(el) el.textContent=cart[id].qty; } }
+
+    function updateQtys(){ 
+      for(const id in cart){ 
+        const el=document.getElementById(`qty-${id}`); 
+        if(el) el.textContent=cart[id].qty; 
+      } 
+    }
 
     window.handleImageError = function(img,icon){
       img.style.display='none';
@@ -1473,5 +1548,24 @@
       window.addEventListener('scroll',()=>{ updateProgressBar(); toggleScrollTop(); });
     });
   </script>
+
+  <!-- قائمة بأسماء الصور المطلوبة لرفعها (لن تظهر في الصفحة) -->
+  <div style="display: none;">
+    <p>الصور المطلوبة للموقع: (يجب وضعها في نفس مجلد الصفحة)</p>
+    <ul>
+      <li>burger1.jpg – برغر أطلس الكبير</li>
+      <li>burger2.jpg – برغر دجاج مقرمش</li>
+      <li>burger3.jpg – برغر نباتي</li>
+      <li>tacos1.jpg – تاكوس أطلس</li>
+      <li>tacos2.jpg – تاكوس دجاج</li>
+      <li>coca.jpg – كوكاكولا</li>
+      <li>fanta.jpg – فانتا</li>
+      <li>mirinda.jpg – ميرندا</li>
+      <li>dessert1.jpg – بسبوسة</li>
+      <li>dessert2.jpg – كنافة</li>
+      <li>frites.jpg – بطاطس مقلية</li>
+      <li>cheese.jpg – صوص جبن</li>
+    </ul>
+  </div>
 </body>
 </html>
