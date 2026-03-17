@@ -445,33 +445,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const menuContainer = document.getElementById('menuCategories');
   menuContainer.addEventListener('click', function(e) {
-    const quickAddBtn = e.target.closest('.quick-add');
-    if (quickAddBtn) {
-      const id = quickAddBtn.dataset.id;
+    const button = e.target.closest('button');
+    if (!button) {
+      const itemName = e.target.closest('.item-name');
+      if (itemName) {
+        const id = itemName.dataset.id;
+        if (id) openCustomization(id);
+      }
+      return;
+    }
+
+    if (button.classList.contains('quick-add')) {
+      const id = button.dataset.id;
       if (id) addToCart(id);
-      return;
-    }
-
-    const plusBtn = e.target.closest('.btn-plus');
-    if (plusBtn) {
-      const id = plusBtn.dataset.id;
+    } else if (button.classList.contains('btn-plus')) {
+      const id = button.dataset.id;
       if (id) openCustomization(id);
-      return;
-    }
-
-    const minusBtn = e.target.closest('.btn-minus');
-    if (minusBtn) {
-      const id = minusBtn.dataset.id;
-      const delta = parseInt(minusBtn.dataset.delta);
+    } else if (button.classList.contains('btn-minus')) {
+      const id = button.dataset.id;
+      const delta = parseInt(button.dataset.delta);
       if (id && !isNaN(delta)) updateCartItem(id, delta);
-      return;
-    }
-
-    const itemName = e.target.closest('.item-name');
-    if (itemName) {
-      const id = itemName.dataset.id;
-      if (id) openCustomization(id);
-      return;
     }
   });
 
