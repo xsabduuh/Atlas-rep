@@ -1,3 +1,4 @@
+```javascript
 // ========== قائمة الطعام ==========
 const MENU_ITEMS = [
   { id:'burger1', name:'برغر أطلس الكبير', desc:'لحمة بقري 200غ + جبن شيدر + خس + طماطم + صوص خاص', price:55, icon:'🍔', image:'burger.jpg', badge:{type:'green',text:'◈ الأفضل'}, category:'burgers', categoryAr:'البرغر', time:'15-20 دقيقة', recommended: ['drink1', 'extra1'], customizations: [ { id: 'cheese', name: 'جبن إضافي', price: 5 }, { id: 'sauce', name: 'صوص خاص', price: 3 }, { id: 'onion', name: 'بدون بصل', price: 0 } ] },
@@ -520,3 +521,4 @@ window.undoLastAdd = undoLastAdd;
 window.zoomImage = zoomImage;
 window.openCustomization = openCustomization;
 window.updateCustomizationTotal = updateCustomizationTotal;
+```
