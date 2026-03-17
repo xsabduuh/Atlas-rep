@@ -15,6 +15,7 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.8);
   --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-bg: rgba(12, 10, 8, 0.96);
 }
 
 :root.light-theme {
@@ -33,6 +34,7 @@
   --gray-light: #8a8a8a;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.2);
+  --nav-bg: rgba(248, 244, 240, 0.96);
 }
 
 * {
@@ -91,7 +93,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(12, 10, 8, 0.96);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(230, 57, 70, 0.15);
   transition: all 0.3s;
@@ -1357,4 +1359,4 @@ footer {
   }
   .footer-links { flex-direction: column; gap: 12px; }
   .float-button { width: calc(100% - 40px); justify-content: center; }
-} 
+}
