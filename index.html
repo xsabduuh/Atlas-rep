@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>ATLAS SNACK | مطعم البرغر والتاكوس</title>
-  <!-- ربط خطوط Google -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-  <!-- ربط ملف CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,7 +18,6 @@
     </div>
   </nav>
 
-  <!-- بانر العروض -->
   <div class="offer-banner" id="offerBanner">
     <div class="offer-banner-content">
       <h3 id="offerTitle">🔥 عرض اليوم</h3>
@@ -29,7 +26,6 @@
     <div class="offer-banner-tag" id="offerTag">وفر 20%</div>
   </div>
 
-  <!-- شريط الفلترة -->
   <div class="filter-tabs" id="filterTabs">
     <button class="filter-tab active" data-filter="all">الكل</button>
     <button class="filter-tab" data-filter="burgers">البرغر</button>
@@ -40,14 +36,12 @@
     <button class="filter-tab" data-filter="offers">العروض</button>
   </div>
 
-  <!-- قسم المنيو (سيتم ملؤه عبر JavaScript) -->
   <section class="section" id="menu">
     <div class="section-header"><div class="section-line"></div><div class="section-eyebrow">✦ قائمة الطعام</div></div>
     <h2 class="section-title">اختر <span>طلبك</span></h2>
     <div id="menuCategories"></div>
   </section>
 
-  <!-- معلومات المحل -->
   <section class="section" id="info">
     <div class="section-header"><div class="section-line"></div><div class="section-eyebrow">✦ تواصل معنا</div></div>
     <h2 class="section-title">معلومات <span>المحل</span></h2>
@@ -66,13 +60,11 @@
     <div class="footer-copy">◆ 2025 Atlas Snack ◆</div>
   </footer>
 
-  <!-- الأزرار الثابتة -->
   <button class="float-button" id="floatingCart" aria-label="عرض السلة">◈ سلتي <span class="float-badge" id="floatingBadge">0</span></button>
   <div class="scroll-top" id="scrollTop" aria-label="العودة للأعلى">↑</div>
   <div class="toast" id="toast"></div>
   <div class="overlay" id="overlay"></div>
 
-  <!-- دراور السلة -->
   <div class="drawer" id="cartDrawer">
     <div class="drawer-handle"></div>
     <div class="drawer-header"><div class="drawer-title">◈ سلتي</div><button class="drawer-close" id="closeDrawerBtn">✕</button></div>
@@ -84,7 +76,6 @@
     </div>
   </div>
 
-  <!-- نموذج الطلب -->
   <div class="form-modal" id="orderFormModal">
     <div class="form-container">
       <div class="form-handle"></div>
@@ -129,7 +120,6 @@
     </div>
   </div>
 
-  <!-- مودال الإضافات -->
   <div class="customization-modal" id="customizationModal">
     <div class="customization-container">
       <div class="customization-title" id="customizationItemName">برغر أطلس</div>
@@ -146,13 +136,11 @@
     </div>
   </div>
 
-  <!-- مودال تكبير الصورة -->
   <div class="image-zoom-overlay" id="imageZoomOverlay">
     <button class="zoom-close" id="closeZoomBtn">✕</button>
     <img class="zoom-image" id="zoomedImage" src="" alt="">
   </div>
 
-  <!-- ربط ملف JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
