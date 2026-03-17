@@ -91,6 +91,14 @@
       justify-content: center; position: relative; font-size: 18px; transition: var(--transition);
     }
     .cart-button:active { transform: scale(0.92); }
+    .cart-button.animate {
+      animation: pulse 0.3s ease-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
     .cart-badge {
       position: absolute; top: -5px; left: -5px; background: var(--gold); color: var(--bg);
       width: 20px; height: 20px; border-radius: 50%; font-size: 10px; font-weight: 900;
@@ -573,6 +581,13 @@
         saveCart();
         updateCartUI();
         showToast(`✦ ${item.name} تمت الإضافة`, true);
+
+        // تأثير النبض على زر السلة
+        const cartBtn = document.getElementById('cartButton');
+        cartBtn.classList.add('animate');
+        setTimeout(() => {
+          cartBtn.classList.remove('animate');
+        }, 300);
       }
 
       function updateCartItem(id, delta) {
