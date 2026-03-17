@@ -1476,16 +1476,19 @@
         const gridDiv = document.createElement('div');
         gridDiv.className = 'items-grid';
 
-        cat.items.forEach(item => {
+        cat.items.forEach((item, index) => {
           const qty = cart[item.id]?.qty || 0;
           const badgeClass = item.badge?.type === 'green' ? 'badge-green' : 'badge-gold';
           const badgeHtml = item.badge ? `<div class="badge ${badgeClass}">${item.badge.text}</div>` : '';
+
+          // إضافة fetchpriority="high" لأول صورة فقط (burger1)
+          const fetchPriority = (item.id === 'burger1') ? 'high' : 'auto';
 
           const card = document.createElement('div');
           card.className = 'item-card';
           card.innerHTML = `
             <div class="item-image" onclick="zoomImage('${item.image}')">
-              <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="handleImageError(this,'${item.icon}')">
+              <img src="${item.image}" alt="${item.name}" loading="lazy" decoding="async" fetchpriority="${fetchPriority}" onerror="handleImageError(this,'${item.icon}')">
               <div class="item-image-fallback" id="fallback-${item.id}">${item.icon}</div>
             </div>
             <div class="item-content">
