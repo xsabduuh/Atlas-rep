@@ -445,23 +445,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const menuContainer = document.getElementById('menuCategories');
   menuContainer.addEventListener('click', function(e) {
-    const target = e.target;
-    if (target.classList.contains('quick-add')) {
-      const id = target.dataset.id;
+    const quickAddBtn = e.target.closest('.quick-add');
+    if (quickAddBtn) {
+      const id = quickAddBtn.dataset.id;
       if (id) addToCart(id);
+      return;
     }
-    else if (target.classList.contains('btn-plus')) {
-      const id = target.dataset.id;
+
+    const plusBtn = e.target.closest('.btn-plus');
+    if (plusBtn) {
+      const id = plusBtn.dataset.id;
       if (id) openCustomization(id);
+      return;
     }
-    else if (target.classList.contains('btn-minus')) {
-      const id = target.dataset.id;
-      const delta = parseInt(target.dataset.delta);
+
+    const minusBtn = e.target.closest('.btn-minus');
+    if (minusBtn) {
+      const id = minusBtn.dataset.id;
+      const delta = parseInt(minusBtn.dataset.delta);
       if (id && !isNaN(delta)) updateCartItem(id, delta);
+      return;
     }
-    else if (target.classList.contains('item-name')) {
-      const id = target.dataset.id;
+
+    const itemName = e.target.closest('.item-name');
+    if (itemName) {
+      const id = itemName.dataset.id;
       if (id) openCustomization(id);
+      return;
     }
   });
 
